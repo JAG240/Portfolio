@@ -1,3 +1,23 @@
+*{
+    background-image: url("temp_background_2.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
 .App {
   text-align: center;
+  color: white;
+}
+
+.GameCanvas {
+    background: #b5af42;
+    width: 50%;
+    height: 50%;
+    padding: 0;
+    margin: auto;
+    display: block;
+    border: 4px solid #3a5122;
+    border-radius: 45px;
 }
