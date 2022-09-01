@@ -40,7 +40,7 @@ export class Tile {
         }
     }
 
-    Update() {
+    Update= () => {
         this.Draw();
     }
 
@@ -61,8 +61,9 @@ export class Board {
 
     Init() {
         for (let i = 0; i < this.xTiles; i++) {
+            this.Tiles.push([]);
             for (let j = 0; j < this.yTiles; j++) {
-                this.Tiles.push(new Tile(i * this.tileWidth, j * this.tileHeight, false));
+                this.Tiles[i].push(new Tile(i * this.tileWidth, j * this.tileHeight, false));
             }
         }
     }
@@ -77,16 +78,22 @@ export class Board {
             var content = xmlhttp.responseText;
             var headers = content.replace("\"corner\",\"active\"\n", '');
             var rows = headers.split("\n");
-            let i = 0;
+            var y = 0;
+            var x = 0;
 
             rows.forEach((row) => {
                 var cleanRow = row.replaceAll('\"', '');
                 var data = cleanRow.split(',');
-                if (data[2] == "true")
-                    tiles[i].toggle();
 
-                i++;
-                });
+                if (data[2] == "true")
+                    tiles[y][x].toggle();
+
+                x++;
+                if (x >= tiles[0].length) {
+                    y++
+                    x = 0;
+                }
+            });
             }
         }
 
@@ -96,28 +103,17 @@ export class Board {
     }
 
     Draw() {
-        this.Tiles.forEach(tile => {
-            tile.Draw(this.tileWidth, this.tileHeight);
+        this.Tiles.forEach(row => {
+            row.forEach(tile => {
+                tile.Draw(this.tileWidth, this.tileHeight);
+            })
         });
 
         document.getElementById("gameCanvas").getContext('2d').closePath();
     }
 
     GetTile(x, y) {
-    var curTile;
-    var closestTile = Number.MAX_VALUE;
-
-    this.Tiles.forEach(tile => {
-        if (tile.corner[0] < x && tile.corner[1] < y) {
-            var distanceToTile = Math.abs(x - tile.corner[0]) + Math.abs(y - tile.corner[1]);
-            if (distanceToTile < closestTile) {
-                closestTile = distanceToTile;
-                curTile = tile;
-                }
-            }
-        });
-
-    return curTile;
+        return this.Tiles[Math.floor(x / this.tileWidth)][Math.floor(y / this.tileHeight)];
     }
 
     Update = () => {
@@ -127,7 +123,7 @@ export class Board {
 
 //Gunner class is the main player
 export class Gunner {
-    constructor(x, y, bodyWidth, bodyHeight, gunWidth, gunHeight, tileWidth, tileHeight, xTiles) {
+    constructor(x, y, bodyWidth, bodyHeight, gunWidth, gunHeight, tileWidth, tileHeight, xTiles, yTiles, Tiles) {
         this.pos = [x, y];
         this.bodyWidth = bodyWidth;
         this.bodyHeight = bodyHeight;
@@ -137,11 +133,23 @@ export class Gunner {
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.xTiles = xTiles;
+        this.yTiles = yTiles;
+        this.Tiles = Tiles;
+        this.targets = [];
     }
 
     Update() {
         if (this.dest == null) {
-            this.dest = Math.floor(Math.random() * 1200) + this.bodyWidth;
+
+            if (this.targets.length <= 0)
+                this.targets = this.FindTargets();
+
+            if (this.targets == null)
+                return;
+
+            this.dest = this.targets[Math.floor(Math.random() * this.targets.length)];
+
+            console.log(this.targets);
         }
         else {
             this.GoToDest();
@@ -181,11 +189,51 @@ export class Gunner {
         if (this.dest == null)
             return;
 
-        if (Math.floor(this.pos[0] + (this.bodyWidth / 2)) == this.dest) {
+        var destPos = this.dest.corner[0] + (this.tileWidth / 2);
+
+        if (Math.floor(this.pos[0] + (this.bodyWidth / 2)) == destPos) {
+            this.RemoveTarget(this.dest);
+            this.dest.toggle();
             this.dest = null;
             return;
         }
 
-        this.Move(this.pos[0] + (this.bodyWidth / 2) > this.dest ? -1 : 1);
+        this.Move(this.pos[0] + (this.bodyWidth / 2) > destPos ? -1 : 1);
+    }
+
+    FindTargets() {
+
+        var targets = [];
+
+        var y = this.yTiles - 1;
+
+        for (let j = this.yTiles - 1; j >= 0; j--) {
+            for (let x = this.xTiles - 1; x >= 0; x--) {
+
+                if (this.Tiles[x][y].active) {
+                    targets.push(this.Tiles[x][y]);
+                }
+            }
+
+            if (targets.length > 0)
+                return targets;
+
+            y--;
+        }
+    }
+
+    RemoveTarget(remTarget) {
+
+        var newTargets = [];
+
+        this.targets.forEach(target => {
+
+            if (remTarget.corner[0] != target.corner[0] && remTarget.corner[1] != target.corner[1]) {
+                newTargets.push(target);
+            }
+
+        });
+
+        this.targets = newTargets;
     }
 }
