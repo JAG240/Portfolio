@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CSVLink } from 'react-csv';
-import { GameScreen, Tile, Board, Gunner } from './GameObjects.js';
+import { GameScreen, Board, Gunner, Hints } from './GameObjects.js';
 
 var xTiles = 64;
 var yTiles = 32;
@@ -12,19 +12,56 @@ board.Init();
 board.LoadTileLayout(board.Tiles);
 screen.AddObject(board)
 
-const gunner = new Gunner(board.tileWidth * (xTiles / 2), board.tileHeight * (yTiles - 2), board.tileWidth * 1.3, (board.tileHeight / 2), (board.tileWidth / 3), board.tileHeight, board.tileWidth, board.tileHeight, xTiles, yTiles, board.Tiles);
+const gunner = new Gunner(board.tileWidth * (xTiles / 2), board.tileHeight * (yTiles - 2), board);
 screen.AddObject(gunner);
+
+const hints = new Hints(board.tileWidth * 2 , (yTiles * board.tileHeight) - (board.tileHeight/4));
+screen.AddObject(hints);
 
 function GameCanvas() {
 
     const [showExport, setExport] = useState(false);
     const [allowEdit, setEdit] = useState(false);
+    const [aiEnabled, setAIEnabled] = useState(gunner.aiEnabled);
 
-    const toggleEdit = () => { setEdit(!allowEdit); }
+    const toggleEdit = () => {
+        setEdit(!allowEdit);
+        gunner.ToggleAI();
+
+        if (!allowEdit)
+            hints.displayText = hints.editHints;
+        else
+            hints.displayText = "";
+    }
+
+    const toggleAI = () => {
+        setAIEnabled(!aiEnabled);
+        gunner.ToggleAI();
+
+        if (aiEnabled)
+            hints.displayText = hints.selectWindow;
+        else
+            hints.displayText = "";
+    }
 
     function handleEditToggle(e) {
         if (allowEdit) {
             GetMouseOnCanvas(e);
+        }
+        else if (!aiEnabled) {
+            hints.displayText = hints.commandHints;
+        }
+    }
+
+    function handleKeyPress(e) {
+        if (!aiEnabled) {
+            CommandShip(e);
+        }
+    }
+
+    function handleKeyRelease(e) {
+        if (!aiEnabled) {
+            StopShip(e);
         }
     }
 
@@ -64,11 +101,45 @@ function GameCanvas() {
         tile.toggle();
     }
 
+    function CommandShip(e) {
+        if (e.key === "d" || e.key === "ArrowRight") {
+            gunner.dir = 1
+        }
+        else if (e.key === "a" || e.key === "ArrowLeft") {
+            gunner.dir = -1
+        }
+
+        if (e.key === " ") {
+            gunner.Shoot();
+        }
+    }
+
+    function StopShip(e) {
+        if (e.key === "d" || e.key === "ArrowRight" || e.key === "a" || e.key === "ArrowLeft") {
+            gunner.dir = 0;
+        }
+    }
+
+    function EditButton() {
+        return (
+            <button onClick={toggleEdit}>{allowEdit ? "Stop Edit" : "Edit Board"}</button>
+            );
+    }
+
+    function CommandButton() {
+        return (
+            <React.Fragment>
+                <button onClick={toggleAI}>{aiEnabled ? "Take Command" : "Retire Command"}</button>
+            </React.Fragment>
+            );
+    }
+
     return (
         <React.Fragment>
-            <canvas onClick={(e) => handleEditToggle(e)} id="gameCanvas" width={board.tileWidth * xTiles} height={board.tileHeight * yTiles} className="GameCanvas"></canvas>
+            <canvas onClick={(e) => handleEditToggle(e)} tabIndex={0} onKeyDown={(e) => handleKeyPress(e)} onKeyUp={(e) => handleKeyRelease(e)} id="gameCanvas" width={board.tileWidth * xTiles} height={board.tileHeight * yTiles} className="GameCanvas"></canvas>
             {showExport ? <BoardExport /> : null}
-            <button onClick={toggleEdit}>{allowEdit ? "Stop Edit" : "Edit Board"}</button>
+            {aiEnabled ? <EditButton /> : null}
+            {allowEdit ? null : <CommandButton />}
         </React.Fragment>
     );
 }

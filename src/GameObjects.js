@@ -123,39 +123,34 @@ export class Board {
 
 //Gunner class is the main player
 export class Gunner {
-    constructor(x, y, bodyWidth, bodyHeight, gunWidth, gunHeight, tileWidth, tileHeight, xTiles, yTiles, Tiles) {
-        this.pos = [x, y];
-        this.bodyWidth = bodyWidth;
-        this.bodyHeight = bodyHeight;
-        this.gunWidth = gunWidth;
-        this.gunHeight = gunHeight;
+    constructor(x, y, board) {
+        this.pos = [Math.floor(x), y];
+        this.bodyWidth = board.tileWidth * 1.3;
+        this.bodyHeight = (board.tileHeight / 2);
+        this.gunWidth = board.tileWidth / 3;
+        this.gunHeight = board.tileHeight;
         this.dest = null;
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
-        this.xTiles = xTiles;
-        this.yTiles = yTiles;
-        this.Tiles = Tiles;
+        this.board = board;
         this.targets = [];
+        this.missiles = [];
+        this.lastMissileTime = 0;
+        this.lastTarget = null;
+        this.aiEnabled = true;
+        this.dir = 0;
     }
 
     Update() {
-        if (this.dest == null) {
 
-            if (this.targets.length <= 0)
-                this.targets = this.FindTargets();
+        if (this.aiEnabled)
+            this.AIControl();
 
-            if (this.targets == null)
-                return;
-
-            this.dest = this.targets[Math.floor(Math.random() * this.targets.length)];
-
-            console.log(this.targets);
-        }
-        else {
-            this.GoToDest();
-        }
-
+        this.Move();
         this.Draw();
+        this.UpdateMissiles();
+    }
+
+    UpdateMissiles() {
+        this.missiles.forEach(missile => missile.Update());
     }
 
     Draw() {
@@ -178,9 +173,12 @@ export class Gunner {
         document.getElementById('gameCanvas').getContext('2d').closePath();
     }
 
-    Move(dir) {
-        if ((this.pos[0] + this.bodyWidth) < (this.tileWidth * this.xTiles) - this.tileWidth && this.pos[0] > this.tileWidth) {
-            this.pos[0] += dir;
+    Move() {
+        if (this.dir > 0 && (this.pos[0] + this.bodyWidth) < (this.board.tileWidth * this.board.xTiles) - this.board.tileWidth) {
+            this.pos[0] += this.dir;
+        }
+        else if (this.dir < 0 && this.pos[0] > this.board.tileWidth) {
+            this.pos[0] += this.dir;
         }
     }
 
@@ -189,29 +187,55 @@ export class Gunner {
         if (this.dest == null)
             return;
 
-        var destPos = this.dest.corner[0] + (this.tileWidth / 2);
+        var destPos = this.dest.corner[0] + (this.board.tileWidth / 2);
 
         if (Math.floor(this.pos[0] + (this.bodyWidth / 2)) == destPos) {
+
+            if (!this.Shoot())
+                return;
+
             this.RemoveTarget(this.dest);
-            this.dest.toggle();
+            this.lastTarget = this.dest;
             this.dest = null;
             return;
         }
 
-        this.Move(this.pos[0] + (this.bodyWidth / 2) > destPos ? -1 : 1);
+        this.dir = this.pos[0] + (this.bodyWidth / 2) > destPos ? -1 : 1;
+    }
+
+    AIControl() {
+        if (this.dest == null || this.targets.length <= 0) {
+
+            if (this.targets == null || this.targets.length <= 0) {
+                this.targets = this.FindTargets();
+                return;
+            }
+
+            this.dest = this.targets[Math.floor(Math.random() * this.targets.length)];
+        }
+        else {
+            this.GoToDest();
+        }
+    }
+
+    ToggleAI() {
+        this.aiEnabled = !this.aiEnabled;
+        this.dir = 0;
+        this.targets = [];
+        this.dest = null;
     }
 
     FindTargets() {
 
         var targets = [];
 
-        var y = this.yTiles - 1;
+        var y = this.board.yTiles - 1;
 
-        for (let j = this.yTiles - 1; j >= 0; j--) {
-            for (let x = this.xTiles - 1; x >= 0; x--) {
+        for (let j = this.board.yTiles - 1; j >= 0; j--) {
+            for (let x = this.board.xTiles - 1; x >= 0; x--) {
 
-                if (this.Tiles[x][y].active) {
-                    targets.push(this.Tiles[x][y]);
+                if (this.board.Tiles[x][y].active && !(this.board.Tiles[x][y] === this.lastTarget)) {
+                    targets.push(this.board.Tiles[x][y]);
                 }
             }
 
@@ -222,18 +246,113 @@ export class Gunner {
         }
     }
 
+    Shoot() {
+        if (Date.now() - this.lastMissileTime < 1000)
+            return false;
+
+        this.missiles.push(new Missile(this.pos[0] + (this.board.tileWidth / 2), this.pos[1], -1, this.board, this.lastMissileTime, this));
+        this.lastMissileTime = Date.now();
+        return true;
+    }
+
     RemoveTarget(remTarget) {
 
         var newTargets = [];
 
         this.targets.forEach(target => {
 
-            if (remTarget.corner[0] != target.corner[0] && remTarget.corner[1] != target.corner[1]) {
+            if (!(target === remTarget)) {
                 newTargets.push(target);
             }
 
         });
 
         this.targets = newTargets;
+    }
+
+    RemoveMissile(id) {
+
+        var newMissiles = [];
+
+        this.missiles.forEach(missile => {
+
+            if (missile.id != id) {
+                newMissiles.push(missile);
+            }
+
+        });
+
+        this.missiles = newMissiles;
+    }
+}
+
+//Missiles are the main interaction object
+class Missile {
+    constructor(x, y, direction, board, id, gunner) {
+        this.pos = [x, y];
+        this.direction = direction;
+        this.board = board;
+        this.bodyWidth = this.board.tileWidth / 4;
+        this.bodyHeight = this.board.tileHeight / 2;
+        this.gunner = gunner;
+        this.id = id;
+    }
+
+    Draw() {
+        document.getElementById("gameCanvas").getContext('2d').beginPath();
+        document.getElementById('gameCanvas').getContext('2d').rect(this.pos[0], this.pos[1], this.bodyWidth, this.bodyHeight);
+        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3a5122';
+        document.getElementById('gameCanvas').getContext('2d').stroke();
+        document.getElementById('gameCanvas').getContext('2d').fillStyle = "#5d782e";
+        document.getElementById('gameCanvas').getContext('2d').fill();
+        document.getElementById('gameCanvas').getContext('2d').closePath();
+    }
+
+    Move() {
+        this.pos[1] += this.direction;
+    }
+
+    CheckCollision() {
+        var tile = this.board.GetTile(this.pos[0], this.pos[1]);
+
+        if (tile == null) {
+            this.gunner.RemoveMissile(this.id);
+            return;
+        }
+
+        if (tile.active) {
+            this.gunner.RemoveMissile(this.id);
+            tile.toggle();
+        }
+    }
+
+    Update() {
+        this.Move();
+        this.CheckCollision();
+        this.Draw();
+    }
+}
+
+export class Hints {
+    constructor(x, y) {
+        this.pos = [x, y];
+        this.displayText = "";
+        this.commandHints = "Move: Arrow Keys    Fire: Space";
+        this.editHints = "Click on tiles to toggle them";
+        this.selectWindow = "Click game screen to get started"
+    }
+
+    Draw() {
+        document.getElementById("gameCanvas").getContext('2d').beginPath();
+        document.getElementById('gameCanvas').getContext('2d').font = "30px Arial";
+        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3a5122';
+        document.getElementById('gameCanvas').getContext('2d').stroke();
+        document.getElementById('gameCanvas').getContext('2d').fillStyle = "#5d782e";
+        document.getElementById('gameCanvas').getContext('2d').fillText(this.displayText, this.pos[0], this.pos[1]);
+        document.getElementById('gameCanvas').getContext('2d').closePath();
+    }
+
+    Update() {
+        this.Draw();
     }
 }
