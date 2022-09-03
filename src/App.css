@@ -1,5 +1,4 @@
 * {
-    background-color: #98c8d6;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -7,17 +6,93 @@
 }
 
 .App {
-  text-align: center;
-  color: white;
+    background: linear-gradient(to right, rgba(135, 128, 116, 1) 30%, transparent: 0);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
 }
 
 .GameCanvas {
-    background: #FFDDAA;
-    width: 50%;
-    height: 50%;
+    background: #EEF4E4;
+    width: 100%;
+    height: 100%;
     padding: 0;
-    margin: auto;
+    border-top: 20px;
     display: block;
     border: 4px solid #000000;
     border-radius: 35px;
+}
+
+.intro-text {
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #878074;
+    font-size: 35px;
+    text-transform: uppercase;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.intro-container {
+    display: flex;
+    flex-direction: row;
+    background: #878074;
+    justify-content: center;
+    align-content: center;
+    padding-bottom: 15px;
+}
+
+.hr-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 8px;
+    width: 60%;
+    border-top: 1px solid #0026ff;
+    border-bottom: 1px solid #ff0000;
+    margin-top: 20px;
+}
+
+.hr-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 8px;
+    width: 20%;
+    border-top: 1px solid #0026ff;
+    border-bottom: 1px solid #ff0000;
+    margin-top: 20px;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    width: 60%;
+    text-align: center;
+}
+
+.canvas-container {
+    background: #878074;
+}
+
+.game-screen-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 37px;
+    padding-bottom: 60px;
+    background: #878074;
+    border-radius: 15px 15px 60px 15px;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
 }

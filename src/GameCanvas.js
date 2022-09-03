@@ -128,21 +128,35 @@ function GameCanvas() {
 
     function CommandButton() {
         return (
-            <React.Fragment>
                 <button onClick={toggleAI}>{aiEnabled ? "Take Command" : "Retire Command"}</button>
-            </React.Fragment>
             );
     }
 
     return (
-        <React.Fragment>
-            <canvas onClick={(e) => handleEditToggle(e)} tabIndex={0} onKeyDown={(e) => handleKeyPress(e)} onKeyUp={(e) => handleKeyRelease(e)} id="gameCanvas" width={board.tileWidth * xTiles} height={board.tileHeight * yTiles} className="GameCanvas"></canvas>
-            {showExport ? <BoardExport /> : null}
-            {aiEnabled ? <EditButton /> : null}
-            {allowEdit ? null : <CommandButton />}
-        </React.Fragment>
+        <div className="game-container">
+            <div className="game-screen-container">
+                <div className="intro-container">
+                    <div className="hr-left">
+
+                    </div>
+                    <div>
+                        <text className="intro-text">Jacob Gonos - Software Engineer </text>
+                    </div>
+                    <div className="hr-right">
+
+                    </div>
+                </div>
+                <div className="canvas-container">
+                    <canvas onClick={(e) => handleEditToggle(e)} tabIndex={0} onKeyDown={(e) => handleKeyPress(e)} onKeyUp={(e) => handleKeyRelease(e)} id="gameCanvas" width={board.tileWidth * xTiles} height={board.tileHeight * yTiles} className="GameCanvas"></canvas>
+                </div>
+            </div>
+            <div className="button-container">
+                {showExport ? <BoardExport /> : null}
+                {aiEnabled ? <EditButton /> : null}
+                {allowEdit ? null : <CommandButton />}
+            </div>
+        </div>
     );
 }
-
 
 export default GameCanvas;

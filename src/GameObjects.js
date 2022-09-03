@@ -33,9 +33,9 @@ export class Tile {
         if (this.active) {
             document.getElementById("gameCanvas").getContext('2d').beginPath();
             document.getElementById("gameCanvas").getContext('2d').rect(this.corner[0], this.corner[1], tileWidth, tileHeight);
-            document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#5533002';
+            document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3A6A40';
             document.getElementById("gameCanvas").getContext('2d').stroke();
-            document.getElementById("gameCanvas").getContext('2d').fillStyle = '#AA7D39';
+            document.getElementById("gameCanvas").getContext('2d').fillStyle = '#76A07B';
             document.getElementById("gameCanvas").getContext('2d').fill();
         }
     }
@@ -157,18 +157,18 @@ export class Gunner {
         //draw gun
         document.getElementById("gameCanvas").getContext('2d').beginPath();
         document.getElementById('gameCanvas').getContext('2d').rect((this.pos[0] + (this.bodyWidth / 2) - (this.gunWidth / 2)), (this.pos[1] - (this.bodyHeight)), this.gunWidth, this.gunHeight);
-        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#553300';
+        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3A6A40';
         document.getElementById('gameCanvas').getContext('2d').stroke();
-        document.getElementById('gameCanvas').getContext('2d').fillStyle = "#AA7D39";
+        document.getElementById('gameCanvas').getContext('2d').fillStyle = "#76A07B";
         document.getElementById('gameCanvas').getContext('2d').fill();
         document.getElementById('gameCanvas').getContext('2d').closePath();
 
         //draw body
         document.getElementById("gameCanvas").getContext('2d').beginPath();
         document.getElementById('gameCanvas').getContext('2d').rect(this.pos[0], this.pos[1], this.bodyWidth, this.bodyHeight);
-        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#553300';
+        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3A6A40';
         document.getElementById('gameCanvas').getContext('2d').stroke();
-        document.getElementById('gameCanvas').getContext('2d').fillStyle = "#AA7D39";
+        document.getElementById('gameCanvas').getContext('2d').fillStyle = "#76A07B";
         document.getElementById('gameCanvas').getContext('2d').fill();
         document.getElementById('gameCanvas').getContext('2d').closePath();
     }
@@ -307,9 +307,9 @@ class Missile {
     Draw() {
         document.getElementById("gameCanvas").getContext('2d').beginPath();
         document.getElementById('gameCanvas').getContext('2d').rect(this.pos[0], this.pos[1], this.bodyWidth, this.bodyHeight);
-        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#553300';
+        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3A6A40';
         document.getElementById('gameCanvas').getContext('2d').stroke();
-        document.getElementById('gameCanvas').getContext('2d').fillStyle = "#553300";
+        document.getElementById('gameCanvas').getContext('2d').fillStyle = "#76A07B";
         document.getElementById('gameCanvas').getContext('2d').fill();
         document.getElementById('gameCanvas').getContext('2d').closePath();
     }
@@ -351,9 +351,9 @@ export class Hints {
     Draw() {
         document.getElementById("gameCanvas").getContext('2d').beginPath();
         document.getElementById('gameCanvas').getContext('2d').font = "30px Arial";
-        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#553300';
+        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3A6A40';
         document.getElementById('gameCanvas').getContext('2d').stroke();
-        document.getElementById('gameCanvas').getContext('2d').fillStyle = "#AA7D39";
+        document.getElementById('gameCanvas').getContext('2d').fillStyle = "#76A07B";
         document.getElementById('gameCanvas').getContext('2d').fillText(this.displayText, this.pos[0], this.pos[1]);
         document.getElementById('gameCanvas').getContext('2d').closePath();
     }
