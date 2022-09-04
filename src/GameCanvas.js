@@ -103,10 +103,10 @@ function GameCanvas() {
 
     function CommandShip(e) {
         if (e.key === "d" || e.key === "ArrowRight") {
-            gunner.dir = 1
+            gunner.dir = 3
         }
         else if (e.key === "a" || e.key === "ArrowLeft") {
-            gunner.dir = -1
+            gunner.dir = -3
         }
 
         if (e.key === " ") {
@@ -140,7 +140,7 @@ function GameCanvas() {
 
                     </div>
                     <div>
-                        <text className="intro-text">Jacob Gonos - Software Engineer </text>
+                        <span className="intro-text">Jacob Gonos - Software Engineer </span>
                     </div>
                     <div className="hr-right">
 
@@ -152,7 +152,7 @@ function GameCanvas() {
             </div>
             <div className="button-container">
                 {showExport ? <BoardExport /> : null}
-                {aiEnabled ? <EditButton /> : null}
+                {aiEnabled ? null /*<EditButton />*/ : null}
                 {allowEdit ? null : <CommandButton />}
             </div>
         </div>

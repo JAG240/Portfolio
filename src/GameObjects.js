@@ -116,6 +116,36 @@ export class Board {
         return this.Tiles[Math.floor(x / this.tileWidth)][Math.floor(y / this.tileHeight)];
     }
 
+    GetConnectedTiles(x, y) {
+
+        var queriedTiles = [];
+        var connectTiles = [];
+
+        queriedTiles.push(this.GetTile(x - this.tileWidth, y));
+        queriedTiles.push(this.GetTile(x + this.tileWidth, y));
+        queriedTiles.push(this.GetTile(x, y - this.tileHeight));
+        queriedTiles.push(this.GetTile(x, y + this.tileHeight));
+
+        queriedTiles.forEach(tile => {
+            if (tile) {
+                connectTiles.push(tile);
+            }
+        });
+
+        return connectTiles;
+    }
+
+    CheckTileInColumn(x) {
+
+        for (let i = 0; i < this.yTiles; i++) {
+
+            if (this.Tiles[Math.floor(x / this.tileWidth)][i].active)
+                return true;
+        }
+
+        return false;
+    }
+
     Update() {
         this.Draw();
     }
@@ -137,6 +167,8 @@ export class Gunner {
         this.lastTarget = null;
         this.aiEnabled = true;
         this.dir = 0;
+        this.decayTargets = [];
+        this.lastDecayTime = 0;
     }
 
     Update() {
@@ -175,9 +207,17 @@ export class Gunner {
 
     Move() {
         if (this.dir > 0 && (this.pos[0] + this.bodyWidth) < (this.board.tileWidth * this.board.xTiles) - this.board.tileWidth) {
+
+            /*if (this.board.CheckTileInColumn((this.pos[0] + this.bodyWidth)))
+                this.Shoot();*/
+
             this.pos[0] += this.dir;
         }
         else if (this.dir < 0 && this.pos[0] > this.board.tileWidth) {
+
+            /*if (this.board.CheckTileInColumn((this.pos[0] + this.bodyWidth)))
+                this.Shoot();*/
+
             this.pos[0] += this.dir;
         }
     }
@@ -204,13 +244,44 @@ export class Gunner {
         var calcDir = curPos > destPos ? -1 : 1;
 
         if (calcDir > 0) 
-            this.dir = Math.min(destPos - curPos, 1);
+            this.dir = Math.min(destPos - curPos, 4);
         else if (calcDir < 0)
-            this.dir = Math.max(destPos - curPos, -1);
+            this.dir = Math.max(destPos - curPos, -4);
     }
 
     AIControl() {
+        if (this.decayTargets && this.decayTargets.length > 0) {
+
+            if (Date.now() - this.lastDecayTime < 10)
+                return;
+
+            this.lastDecayTime = Date.now();
+
+            var newTargets = [];
+
+            this.decayTargets.forEach(target => {
+
+                this.board.GetConnectedTiles(target.corner[0], target.corner[1]).forEach(newTarget => {
+                    if (newTarget.active)
+                        newTargets.push(newTarget);
+                });
+
+                if (target.active)
+                    target.toggle();
+            });
+
+            this.decayTargets = newTargets;
+
+            return;
+        }
+
+        if (this.missiles.length > 0) {
+            this.dir = 0;
+            return;
+        }
+
         if (this.dest == null || this.targets.length <= 0) {
+            this.targets = this.FindTargets();
 
             if (this.targets == null || this.targets.length <= 0) {
                 this.targets = this.FindTargets();
@@ -256,7 +327,7 @@ export class Gunner {
         if (Date.now() - this.lastMissileTime < 1000)
             return false;
 
-        this.missiles.push(new Missile(this.pos[0] + (this.board.tileWidth / 2), this.pos[1], -1, this.board, this.lastMissileTime, this));
+        this.missiles.push(new Missile(this.pos[0] + (this.board.tileWidth / 2), this.pos[1], -3, this.board, this.lastMissileTime, this));
         this.lastMissileTime = Date.now();
         return true;
     }
@@ -329,6 +400,14 @@ class Missile {
         if (tile.active) {
             this.gunner.RemoveMissile(this.id);
             tile.toggle();
+
+            var connected = this.board.GetConnectedTiles(this.pos[0], this.pos[1]);
+
+            connected.forEach(tile => {
+                if (tile.active) {
+                    this.gunner.decayTargets.push(tile);
+                }
+            });
         }
     }
 
