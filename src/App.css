@@ -93,3 +93,91 @@
 .about-container{
     color: #000000;
 }
+
+.controls-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.up-arrow{
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid #000000;
+}
+
+.down-arrow{
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 50px solid #000000;
+}
+
+.left-arrow{
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-right: 50px solid #000000;
+    border-bottom: 25px solid transparent;
+}
+
+.right-arrow{
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-left: 50px solid #000000;
+    border-bottom: 25px solid transparent;
+}
+
+.up {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    grid-area: up;
+    background: #eee;
+    height: 100px;
+    width: 100px;
+}
+
+.down {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    grid-area: down;
+    background: #eee;
+    height: 100px;
+    width: 100px;
+}
+
+.right {
+    display: inline-block;
+    align-content: center;
+    justify-content: center;
+    grid-area: right;
+    background: #eee;
+    height: 100px;
+    width: 100px;
+}
+
+.left {
+    display: inline-block;
+    align-content: center;
+    justify-content: end;
+    grid-area: left;
+    background: #eee;
+    height: 100px;
+    width: 100px;
+}
+
+.d-pad{
+    display: grid;
+    grid-template-areas:
+        '. up .'
+        'left . right'
+        '. down .';
+    gap: 10px;
+}

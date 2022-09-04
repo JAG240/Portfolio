@@ -27,6 +27,7 @@ export class Tile {
     constructor(x, y, active) {
         this.corner = [x, y];
         this.active = active;
+        this.link = "";
     }
 
     Draw(tileWidth, tileHeight) {
@@ -228,8 +229,6 @@ export class Gunner {
         this.lastTarget = null;
         this.aiEnabled = false;
         this.dir = 0;
-        //this.decayTargets = [];
-        //this.lastDecayTime = 0;
     }
 
     Update() {
@@ -271,20 +270,10 @@ export class Gunner {
         if (!this.board.controlsEnabled)
             return;
 
-        if (this.dir > 0 && (this.pos[0] + this.bodyWidth) < (this.board.tileWidth * this.board.xTiles) - this.board.tileWidth) {
-
-            /*if (this.board.CheckTileInColumn((this.pos[0] + this.bodyWidth)))
-                this.Shoot();*/
-
+        if (this.dir > 0 && (this.pos[0] + this.bodyWidth) < (this.board.tileWidth * this.board.xTiles) - this.board.tileWidth) 
             this.pos[0] += this.dir;
-        }
-        else if (this.dir < 0 && this.pos[0] > this.board.tileWidth) {
-
-            /*if (this.board.CheckTileInColumn((this.pos[0] + this.bodyWidth)))
-                this.Shoot();*/
-
+        else if (this.dir < 0 && this.pos[0] > this.board.tileWidth)
             this.pos[0] += this.dir;
-        }
     }
 
     GoToDest() {
@@ -315,13 +304,6 @@ export class Gunner {
     }
 
     AIControl() {
-        /*if (this.decayTargets && this.decayTargets.length > 0) {
-
-            this.TileDecayEffect();
-
-            return;
-        }*/
-
         if (this.missiles.length > 0) {
             this.dir = 0;
             return;
@@ -469,14 +451,11 @@ class Missile {
         if (tile.active) {
             this.gunner.RemoveMissile(this.id);
             tile.toggle();
+        }
 
-            /*var connected = this.board.GetConnectedTiles(this.pos[0], this.pos[1]);
-
-            connected.forEach(tile => {
-                if (tile.active) {
-                    this.gunner.decayTargets.push(tile);
-                }
-            });*/
+        if (tile.link.length > 0) {
+            this.gunner.RemoveMissile(this.id);
+            window.location.href = tile.link;
         }
     }
 
@@ -491,9 +470,6 @@ export class Hints {
     constructor(x, y) {
         this.pos = [x, y];
         this.displayText = "";
-        this.commandHints = "Move: Arrow Keys    Fire: Space";
-        this.editHints = "Click on tiles to toggle them";
-        this.selectWindow = "Click game screen to get started"
     }
 
     Draw() {
@@ -508,5 +484,69 @@ export class Hints {
 
     Update() {
         this.Draw();
+    }
+}
+
+export class Link {
+    constructor(x, y, text, board, height, path) {
+        this.pos = [x * board.tileWidth, y * board.tileHeight];
+        this.text = text;
+        this.board = board;
+        this.textWidth = 0;
+        this.textHeight = height * this.board.tileHeight;
+        this.path = path;
+    }
+
+    Draw() {
+        document.getElementById("gameCanvas").getContext('2d').beginPath();
+        document.getElementById('gameCanvas').getContext('2d').font = `${this.textHeight}px Arial`;
+
+        document.getElementById('gameCanvas').getContext('2d').fillStyle = "#76A07B";
+        document.getElementById('gameCanvas').getContext('2d').fillText(this.text, this.pos[0], this.pos[1]);
+
+        this.MeasureTextWidth();
+
+        document.getElementById('gameCanvas').getContext('2d').closePath();
+
+        document.getElementById("gameCanvas").getContext('2d').beginPath();
+        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3A6A40';
+        document.getElementById('gameCanvas').getContext('2d').rect(this.pos[0], this.pos[1] - (this.textHeight - 6), this.textWidth, this.textHeight);
+        document.getElementById('gameCanvas').getContext('2d').stroke();
+
+        document.getElementById('gameCanvas').getContext('2d').closePath();
+
+        this.RegisterTiles();
+    }
+
+    MeasureTextWidth() {
+        var letters = this.text.split("");
+        var width = 0;
+        letters.forEach(letter => {
+            width += document.getElementById('gameCanvas').getContext('2d').measureText(letter).width;
+        });
+
+        this.textWidth = width;
+    }
+
+    RegisterTiles() {
+        var yTiles = Math.floor(this.textHeight / this.board.tileHeight);
+        var xTiles = Math.floor(this.textWidth / this.board.tileWidth);
+
+        var convertedPos = [(this.pos[0] / this.board.tileWidth), (this.pos[1] / this.board.tileHeight) - 1];
+
+        for (let x = convertedPos[0]; x <= convertedPos[0] + xTiles; x++) {
+            for (let y = convertedPos[1]; y > convertedPos[1] - yTiles; y--) {
+                /*if (!this.board.Tiles[x][y].active)
+                    this.board.Tiles[x][y].toggle();*/
+
+                if (this.board.Tiles[x][y])
+                    this.board.Tiles[x][y].link = this.path;
+            }
+        }
+    }
+
+    Update() {
+        if (this.board.controlsEnabled)
+            this.Draw();
     }
 }
