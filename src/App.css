@@ -1,10 +1,3 @@
-* {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-}
-
 .App {
     background: linear-gradient(to right, rgba(135, 128, 116, 1) 30%, transparent: 0);
     color: white;
@@ -95,4 +88,8 @@
     flex-direction: row;
     align-content: center;
     justify-content: center;
+}
+
+.about-container{
+    color: #000000;
 }

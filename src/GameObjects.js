@@ -57,13 +57,20 @@ export class Board {
         this.yTiles = yTiles;
         this.tileWidth = Math.floor(window.innerWidth / xTiles);
         this.tileHeight = Math.floor(window.innerHeight / yTiles);
+        this.tileTemplate = [];
+        this.introIndex = 0;
+        this.introFlashes = 0;
+        this.introTimer = 0;
+        this.controlsEnabled = false;
     }
 
     Init() {
         for (let i = 0; i < this.xTiles; i++) {
             this.Tiles.push([]);
+            this.tileTemplate.push([]);
             for (let j = 0; j < this.yTiles; j++) {
                 this.Tiles[i].push(new Tile(i * this.tileWidth, j * this.tileHeight, false));
+                this.tileTemplate[i].push(false);
             }
         }
     }
@@ -146,7 +153,61 @@ export class Board {
         return false;
     }
 
+    LoadAnimationTemplate() {
+        for (let x = 0; x < this.Tiles.length; x++) {
+            for (let y = 0; y < this.Tiles[0].length; y++) {
+                if (this.Tiles[x][y].active) {
+                    this.tileTemplate[x][y] = true;
+                    this.Tiles[x][y].toggle();
+                }
+            }
+        }
+    }
+
+    IntroAnimation() {
+
+        if (Date.now() - this.introTimer < 50) {
+            return;
+        }
+
+        for (let y = 0; y < this.tileTemplate[0].length; y++) {
+            if (this.tileTemplate[this.introIndex][y]) {
+                this.Tiles[this.introIndex][y].toggle();
+                this.introTimer = Date.now();
+            }
+        }
+
+        this.introIndex++;
+
+        if (this.introIndex == this.xTiles && this.introFlashes < 2) {
+            this.introIndex = 0;
+            this.introFlashes++;
+        }
+    }
+
+    LoadMainTemplate() {
+        for (let x = 4; x < this.xTiles - 4; x++) {
+            for (let y = 20; y < this.yTiles - 8; y++) {
+                this.Tiles[x][y].toggle();
+            }
+        }
+
+        this.introFlashes++;
+        this.controlsEnabled = true;
+    }
+
     Update() {
+
+        if (this.introIndex < this.xTiles && this.introFlashes < 2) {
+            if (this.introIndex == 0 && this.introFlashes == 0)
+                this.LoadAnimationTemplate();
+
+            this.IntroAnimation();
+        }
+        else if (this.introFlashes == 2) {
+            this.LoadMainTemplate();
+        }
+
         this.Draw();
     }
 }
@@ -165,10 +226,10 @@ export class Gunner {
         this.missiles = [];
         this.lastMissileTime = 0;
         this.lastTarget = null;
-        this.aiEnabled = true;
+        this.aiEnabled = false;
         this.dir = 0;
-        this.decayTargets = [];
-        this.lastDecayTime = 0;
+        //this.decayTargets = [];
+        //this.lastDecayTime = 0;
     }
 
     Update() {
@@ -206,6 +267,10 @@ export class Gunner {
     }
 
     Move() {
+
+        if (!this.board.controlsEnabled)
+            return;
+
         if (this.dir > 0 && (this.pos[0] + this.bodyWidth) < (this.board.tileWidth * this.board.xTiles) - this.board.tileWidth) {
 
             /*if (this.board.CheckTileInColumn((this.pos[0] + this.bodyWidth)))
@@ -250,30 +315,12 @@ export class Gunner {
     }
 
     AIControl() {
-        if (this.decayTargets && this.decayTargets.length > 0) {
+        /*if (this.decayTargets && this.decayTargets.length > 0) {
 
-            if (Date.now() - this.lastDecayTime < 10)
-                return;
-
-            this.lastDecayTime = Date.now();
-
-            var newTargets = [];
-
-            this.decayTargets.forEach(target => {
-
-                this.board.GetConnectedTiles(target.corner[0], target.corner[1]).forEach(newTarget => {
-                    if (newTarget.active)
-                        newTargets.push(newTarget);
-                });
-
-                if (target.active)
-                    target.toggle();
-            });
-
-            this.decayTargets = newTargets;
+            this.TileDecayEffect();
 
             return;
-        }
+        }*/
 
         if (this.missiles.length > 0) {
             this.dir = 0;
@@ -293,6 +340,28 @@ export class Gunner {
         else {
             this.GoToDest();
         }
+    }
+
+    TileDecayEffect() {
+        if (Date.now() - this.lastDecayTime < 10)
+            return;
+
+        this.lastDecayTime = Date.now();
+
+        var newTargets = [];
+
+        this.decayTargets.forEach(target => {
+
+            this.board.GetConnectedTiles(target.corner[0], target.corner[1]).forEach(newTarget => {
+                if (newTarget.active)
+                    newTargets.push(newTarget);
+            });
+
+            if (target.active)
+                target.toggle();
+        });
+
+        this.decayTargets = newTargets;
     }
 
     ToggleAI() {
@@ -324,7 +393,7 @@ export class Gunner {
     }
 
     Shoot() {
-        if (Date.now() - this.lastMissileTime < 1000)
+        if (Date.now() - this.lastMissileTime < 250 || !this.board.controlsEnabled)
             return false;
 
         this.missiles.push(new Missile(this.pos[0] + (this.board.tileWidth / 2), this.pos[1], -3, this.board, this.lastMissileTime, this));
@@ -401,13 +470,13 @@ class Missile {
             this.gunner.RemoveMissile(this.id);
             tile.toggle();
 
-            var connected = this.board.GetConnectedTiles(this.pos[0], this.pos[1]);
+            /*var connected = this.board.GetConnectedTiles(this.pos[0], this.pos[1]);
 
             connected.forEach(tile => {
                 if (tile.active) {
                     this.gunner.decayTargets.push(tile);
                 }
-            });
+            });*/
         }
     }
 
