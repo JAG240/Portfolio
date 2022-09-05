@@ -16,7 +16,7 @@ const gunner = new Gunner(board.tileWidth * (xTiles / 2), board.tileHeight * (yT
 screen.AddObject(gunner);
 
 const hints = new Hints(board.tileWidth * 2, (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
-hints.displayText = "Use controls below to shoot bricks. Shoot links to redirect to pages.";
+hints.displayText = "Use controls below to shoot bricks. Shoot page names to navigate to pages.";
 screen.AddObject(hints);
 
 const aboutLink = new Link(10, 15, "About Me", board, 2, "./about");
