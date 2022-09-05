@@ -64,6 +64,7 @@ export class Board {
         this.introTimer = 0;
         this.controlsEnabled = false;
         this.introPlaying = true;
+        this.skipIntro = false;
     }
 
     Init() {
@@ -78,6 +79,10 @@ export class Board {
     }
 
     LoadTileLayout(tiles) {
+
+        if (this.skipIntro)
+            return;
+
         const filePath = "http://localhost:3000/DefaultTileLayout.csv";
         var xmlhttp = new XMLHttpRequest();
 
@@ -249,6 +254,10 @@ export class Board {
     }
 
     Update() {
+
+        if (this.skipIntro && this.introFlashes < 2) {
+            this.introFlashes = 2;
+        }
 
         if (this.introIndex < this.xTiles && this.introFlashes < 2) {
             if (this.introIndex == 0 && this.introFlashes == 0)
@@ -530,7 +539,7 @@ export class Hints {
 
     Draw() {
         document.getElementById("gameCanvas").getContext('2d').beginPath();
-        document.getElementById('gameCanvas').getContext('2d').font = "30px Arial";
+        document.getElementById('gameCanvas').getContext('2d').font = "18px gameboy";
         document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3A6A40';
         document.getElementById('gameCanvas').getContext('2d').stroke();
         document.getElementById('gameCanvas').getContext('2d').fillStyle = "#76A07B";
@@ -556,7 +565,7 @@ export class Link {
 
     Draw() {
         document.getElementById("gameCanvas").getContext('2d').beginPath();
-        document.getElementById('gameCanvas').getContext('2d').font = `${this.textHeight}px Arial`;
+        document.getElementById('gameCanvas').getContext('2d').font = `${this.textHeight}px gameboy`;
 
         document.getElementById('gameCanvas').getContext('2d').fillStyle = "#76A07B";
         document.getElementById('gameCanvas').getContext('2d').fillText(this.text, this.pos[0], this.pos[1]);
@@ -567,7 +576,7 @@ export class Link {
 
         document.getElementById("gameCanvas").getContext('2d').beginPath();
         document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3A6A40';
-        document.getElementById('gameCanvas').getContext('2d').rect(this.pos[0], this.pos[1] - (this.textHeight - 6), this.textWidth, this.textHeight);
+        document.getElementById('gameCanvas').getContext('2d').rect(this.pos[0], this.pos[1] - (this.textHeight - 3), this.textWidth, this.textHeight);
         document.getElementById('gameCanvas').getContext('2d').stroke();
 
         document.getElementById('gameCanvas').getContext('2d').closePath();

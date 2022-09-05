@@ -1,3 +1,16 @@
+@font-face{
+    font-family: gameboy;
+    src: url(EarlyGameBoy.ttf);
+}
+@font-face{
+    font-family: retro;
+    src: url(SuperRetro.ttf);
+}
+
+.root {
+    background: #FFFDFA;
+}
+
 .App {
     background: #FFFDFA;
     color: white;
@@ -22,7 +35,8 @@
     padding-left: 10px;
     padding-right: 10px;
     background: #878074;
-    font-size: 35px;
+    font-size: 30px;
+    font-family: retro;
     text-transform: uppercase;
     text-align: right;
     white-space: nowrap;
@@ -43,9 +57,9 @@
     justify-content: center;
     height: 8px;
     width: 60%;
-    border-top: 1px solid #0026ff;
-    border-bottom: 1px solid #ff0000;
-    margin-top: 20px;
+    border-top: 1px solid #2E4971;
+    border-bottom: 1px solid #902B41;
+    margin-top: 13px;
 }
 
 .hr-right {
@@ -54,9 +68,31 @@
     justify-content: center;
     height: 8px;
     width: 20%;
-    border-top: 1px solid #0026ff;
-    border-bottom: 1px solid #ff0000;
-    margin-top: 20px;
+    border-top: 1px solid #2E4971;
+    border-bottom: 1px solid #902B41;
+    margin-top: 13px;
+}
+
+.hr-left-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 4px;
+    width: 60%;
+    border-top: 1px solid #2E4971;
+    border-bottom: 1px solid #902B41;
+    margin-top: 4px;
+}
+
+.hr-right-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 4px;
+    width: 20%;
+    border-top: 1px solid #2E4971;
+    border-bottom: 1px solid #902B41;
+    margin-top: 4px;
 }
 
 .game-container {
@@ -92,8 +128,101 @@
     justify-content: center;
 }
 
-.about-container{
-    color: #000000;
+.page-title-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 27px;
+    padding-bottom: 40px;
+    background: #878074;
+    border-radius: 15px 15px 60px 15px;
+    color: #FFFDFA;
+    max-width: 20%;
+    align-content: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+    position: sticky;
+    max-width: 70%;
+}
+
+.name-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.name-text {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom:15px;
+    background: #878074;
+    font-size: 15px;
+    font-family: retro;
+    text-transform: uppercase;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.tile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.title-text {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #EEF4E4;
+    color: #76A07B;
+    border: 2px solid #000000;
+    border-radius: 35px;
+    font-size: 30px;
+    font-family: gameboy;
+    text-transform: uppercase;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.title-buttons-container{
+    display:flex;
+    flex-direction: row; 
+    align-content: end;
+    justify-content: right;
+}
+
+.back-button-container{
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+
+.back-button {
+    border-radius: 50px;
+    height: 10px;
+    border: none;
+    transform: rotate(-30deg);
+}
+
+    .back-button:hover {
+        background-color: #D5D0CA;
+        cursor: pointer;
+    }
+
+.back-label {
+    transform: rotate(-30deg);
+    align-content: center;
+    justify-content: right;
+    text-align: right;
+    font-family: retro;
+    font-size: 8px;
+    padding-top: 3px;
+    color: #2E4971;
 }
 
 .controls-container{
@@ -113,6 +242,7 @@
     left: 0;
     color: #2E4971;
     font-size: 25px;
+    font-family: retro;
     text-transform: uppercase;
     padding-top: 30px;
     padding-left: 20px;
@@ -122,6 +252,7 @@
 .under-text-large {
     color: #2E4971;
     font-size: 35px;
+    font-family: retro;
     text-transform: uppercase;
     padding-top: 18px;
     padding-left: 5px;
@@ -269,7 +400,7 @@
 .a-label, .b-label {
     color: #2E4971;
     font-size: 35px;
-    font-family: Tahoma, sans-serif;
+    font-family: retro;
     text-transform: uppercase;
     padding-right: 30px;
 }
@@ -298,4 +429,43 @@
         'b-button b-button . a-label'
         '. b-label . .';
     gap: 5px;
+}
+
+.about-container{
+    display:flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    max-width: 70%;
+}
+
+.about-content-container{
+    display:flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+.profile-picture{
+    height: auto;
+    width: auto;
+    max-height:350px;
+    max-width:322px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-radius: 50%;
+}
+
+.about-me-text{
+    color: #000000;
+    padding: 50px;
+    text-align: center;
+}
+
+.resume-container{
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
 }

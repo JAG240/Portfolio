@@ -9,6 +9,7 @@ const screen = new GameScreen();
 
 const board = new Board(xTiles, yTiles);
 board.Init();
+board.skipIntro = sessionStorage.getItem("skipIntro") == "true" ? true : false;
 board.LoadTileLayout(board.Tiles);
 screen.AddObject(board)
 
@@ -19,13 +20,20 @@ const hints = new Hints(board.tileWidth * 2, (yTiles * board.tileHeight) - (boar
 hints.displayText = "Use controls below to shoot bricks. Shoot page names to navigate to pages.";
 screen.AddObject(hints);
 
-const aboutLink = new Link(10, 15, "About Me", board, 2, "./about");
+const introState = new Hints((board.tileWidth * board.xTiles) - (board.tileWidth * 14), (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
+if (board.skipIntro)
+    introState.displayText = "Skip intro enabled";
+else
+    introState.displayText = "Press down to skip intro"
+screen.AddObject(introState);
+
+const aboutLink = new Link(10, 15, "About Me", board, 1, "./about");
 screen.AddObject(aboutLink);
 
-const projectsLink = new Link(25, 15, "My Projects", board, 2, "./projects");
+const projectsLink = new Link(25, 15, "My Projects", board, 1, "./projects");
 screen.AddObject(projectsLink);
 
-const resumeLink = new Link(43, 15, "My Resume", board, 2, "./resume");
+const resumeLink = new Link(44, 15, "My Resume", board, 1, "./resume");
 screen.AddObject(resumeLink);
 
 function GameCanvas() {
@@ -33,6 +41,23 @@ function GameCanvas() {
     const [showExport, setExport] = useState(false);
     const [allowEdit, setEdit] = useState(false);
     const [aiEnabled, setAIEnabled] = useState(gunner.aiEnabled);
+    const [skipIntro, setSkip] = useState(board.skipIntro);
+
+    function setIntro() {
+
+        if (board.introPlaying)
+            return;
+
+        board.skipIntro = !board.skipIntro;
+        sessionStorage.setItem("skipIntro", board.skipIntro);
+        setSkip(board.skipIntro);
+
+        if (board.skipIntro)
+            introState.displayText = "Skip Intro Enabled";
+        else
+            introState.displayText = "";
+
+    }
 
     const toggleEdit = () => {
         setEdit(!allowEdit);
@@ -165,7 +190,7 @@ function GameCanvas() {
                         <div className="up" onMouseDown={() => Shoot()}>
                             <div className="up-arrow" />
                         </div>
-                        <div className="down">
+                        <div className="down" onMouseDown={() => setIntro()}>
                             <div className="down-arrow" />
                         </div>
                         <div className="center" />
