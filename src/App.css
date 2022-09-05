@@ -1,5 +1,5 @@
 .App {
-    background: linear-gradient(to right, rgba(135, 128, 116, 1) 30%, transparent: 0);
+    background: #FFFDFA;
     color: white;
     display: flex;
     flex-direction: row;
@@ -66,6 +66,8 @@
     justify-content: center;
     width: 60%;
     text-align: center;
+    border: 2px solid #D0CABE;
+    border-radius: 20px;
 }
 
 .canvas-container {
@@ -99,85 +101,201 @@
     flex-direction: row;
 }
 
-.up-arrow{
+.under-text-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.under-text {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    color: #2E4971;
+    font-size: 25px;
+    text-transform: uppercase;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
+.under-text-large {
+    color: #2E4971;
+    font-size: 35px;
+    text-transform: uppercase;
+    padding-top: 18px;
+    padding-left: 5px;
+}
+
+:root {
+    --arrow-color: #141414;
+    --d-pad-color: #050A06;
+    --d-pad-hover: #202020;
+}
+
+.up-arrow, .down-arrow, .left-arrow, .right-arrow {
     width: 0;
     height: 0;
+    border-radius:10px;
+}
+
+.up-arrow {
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
-    border-bottom: 50px solid #000000;
+    border-bottom: 30px solid var(--arrow-color);
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
-.down-arrow{
-    width: 0;
-    height: 0;
+.down-arrow {
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
-    border-top: 50px solid #000000;
+    border-top: 30px solid var(--arrow-color);
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
-.left-arrow{
-    width: 0;
-    height: 0;
+.left-arrow {
     border-top: 25px solid transparent;
-    border-right: 50px solid #000000;
+    border-right: 30px solid var(--arrow-color);
     border-bottom: 25px solid transparent;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
-.right-arrow{
-    width: 0;
-    height: 0;
+.right-arrow {
     border-top: 25px solid transparent;
-    border-left: 50px solid #000000;
+    border-left: 30px solid var(--arrow-color);
     border-bottom: 25px solid transparent;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25%;
+    margin-bottom: auto;
 }
 
 .up {
     display: flex;
     flex-direction: row;
-    align-content: center;
-    justify-content: center;
     grid-area: up;
-    background: #eee;
+    background: var(--d-pad-color);
     height: 100px;
     width: 100px;
+    border-radius: 20px 20px 0px 0px;
 }
+
+    .up:hover {
+        background-image: linear-gradient(var(--d-pad-hover),var(--d-pad-color));
+    }
 
 .down {
     display: flex;
     flex-direction: row;
-    align-content: center;
-    justify-content: center;
     grid-area: down;
-    background: #eee;
+    background: var(--d-pad-color);
     height: 100px;
     width: 100px;
+    border-radius: 0px 0px 20px 20px;
 }
+
+    .down:hover {
+        background-image: linear-gradient(var(--d-pad-color),var(--d-pad-hover));
+    }
 
 .right {
     display: inline-block;
-    align-content: center;
-    justify-content: center;
     grid-area: right;
-    background: #eee;
+    background: var(--d-pad-color);
     height: 100px;
     width: 100px;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.right:hover{
+    background-image: linear-gradient(to right, var(--d-pad-color),var(--d-pad-hover));
 }
 
 .left {
-    display: inline-block;
-    align-content: center;
-    justify-content: end;
+    display: flex;
     grid-area: left;
-    background: #eee;
+    background: var(--d-pad-color);
     height: 100px;
     width: 100px;
+    border-radius: 20px 0px 0px 20px;
+}
+
+    .left:hover {
+        background-image: linear-gradient(to left, var(--d-pad-color),var(--d-pad-hover));
+    }
+
+.center {
+    grid-area: center;
+    background: var(--d-pad-color);
 }
 
 .d-pad{
     display: grid;
     grid-template-areas:
         '. up .'
-        'left . right'
+        'left center right'
         '. down .';
-    gap: 10px;
+    gap: 0px;
+}
+
+.d-pad-container{
+    padding-left: 5%;
+}
+
+.a-button,.b-button {
+    height: 100px;
+    width: 100px;
+    background-color: #902B41;
+    border-radius: 50%;
+}
+
+.a-button{
+    grid-area: a-button;
+}
+
+.a-label{
+    grid-area: a-label;
+}
+
+.a-label, .b-label {
+    color: #2E4971;
+    font-size: 35px;
+    font-family: Tahoma, sans-serif;
+    text-transform: uppercase;
+    padding-right: 30px;
+}
+
+.a-button:hover, .b-button:hover {
+    background-color: #791B2F;
+}
+
+.b-button{
+    grid-area: b-button;
+}
+
+.b-label{
+    grid-area: b-label;
+}
+
+.action-buttons-container{
+    justify-content: left;
+    margin-left: 35%;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-areas:
+        '. . a-button a-button'
+        'b-button b-button . a-label'
+        '. b-label . .';
+    gap: 5px;
 }

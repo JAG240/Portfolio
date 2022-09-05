@@ -15,15 +15,18 @@ screen.AddObject(board)
 const gunner = new Gunner(board.tileWidth * (xTiles / 2), board.tileHeight * (yTiles - 2), board);
 screen.AddObject(gunner);
 
-const hints = new Hints(board.tileWidth * 2, (yTiles * board.tileHeight) - (board.tileHeight / 4));
-hints.displayText = "Use below controls to shoot through the bricks to the pages";
+const hints = new Hints(board.tileWidth * 2, (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
+hints.displayText = "Use controls below to shoot bricks. Shoot links to redirect to pages.";
 screen.AddObject(hints);
 
-const aboutLink = new Link(5, 10, "About Me", board, 2, "./about");
+const aboutLink = new Link(10, 15, "About Me", board, 2, "./about");
 screen.AddObject(aboutLink);
 
-const projectsLink = new Link(20, 10, "My Projects", board, 2, "./projects");
+const projectsLink = new Link(25, 15, "My Projects", board, 2, "./projects");
 screen.AddObject(projectsLink);
+
+const resumeLink = new Link(43, 15, "My Resume", board, 2, "./resume");
+screen.AddObject(resumeLink);
 
 function GameCanvas() {
 
@@ -126,6 +129,14 @@ function GameCanvas() {
             );
     }
 
+    const Movement = (dir) => {
+        gunner.dir = dir;
+    }
+
+    const Shoot = () => {
+        gunner.Shoot();
+    }
+
     return (
         <div className="game-container">
             <div className="game-screen-container">
@@ -144,26 +155,40 @@ function GameCanvas() {
                     <canvas onClick={(e) => handleEditToggle(e)} tabIndex={0} onKeyDown={(e) => handleKeyPress(e)} onKeyUp={(e) => handleKeyRelease(e)} id="gameCanvas" width={board.tileWidth * xTiles} height={board.tileHeight * yTiles} className="GameCanvas"></canvas>
                 </div>
             </div>
+            <div className="under-text-container">
+                <span className="under-text">Passionate and </span>
+                <span className="under-text-large">Self-Taught</span>
+            </div>
             <div className="controls-container">
                 <div className="d-pad-container">
                     <div className="d-pad">
-                        <div className="up">
+                        <div className="up" onMouseDown={() => Shoot()}>
                             <div className="up-arrow" />
                         </div>
                         <div className="down">
                             <div className="down-arrow" />
                         </div>
-                        <div className="left">
+                        <div className="center" />
+                        <div className="left" onMouseDown={() => Movement(-3)} onMouseUp={() => Movement(0)}>
                             <div className="left-arrow" />
                         </div>
-                        <div className="right">
+                        <div className="right" onMouseDown={() => Movement(3)} onMouseUp={() => Movement(0)}>
                             <div className="right-arrow" />
                         </div>
+                    </div>
+                </div>
+                <div className="action-buttons-container">
+                    <div className="action-buttons">
+                        <div className="b-button" onClick={() => Shoot()} />
+                        <span className="b-label">b</span>
+                        <div className="a-button" onClick={() => Shoot()} />
+                        <span className="a-label">a</span>
                     </div>
                 </div>
             </div>
         </div>
     );
+
 }
 
 export default GameCanvas;

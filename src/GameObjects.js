@@ -63,6 +63,7 @@ export class Board {
         this.introFlashes = 0;
         this.introTimer = 0;
         this.controlsEnabled = false;
+        this.introPlaying = true;
     }
 
     Init() {
@@ -187,8 +188,58 @@ export class Board {
     }
 
     LoadMainTemplate() {
+
+        for (let x = 4; x < this.xTiles - 4; x++) {
+            for (let y = 5; y < this.yTiles - 23; y++) {
+                if (x == 5)
+                    continue;
+
+                if (x == this.xTiles - 6)
+                    continue;
+
+                this.Tiles[x][y].toggle();
+            }
+        }
+
         for (let x = 4; x < this.xTiles - 4; x++) {
             for (let y = 20; y < this.yTiles - 8; y++) {
+                if (x == 5)
+                    continue;
+
+                if (x == this.xTiles - 6)
+                    continue;
+
+                this.Tiles[x][y].toggle();
+            }
+        }
+
+        for (let x = 4; x < 8; x++) {
+            for (let y = 9; y < this.yTiles - 12; y++) {
+                if (x == 5)
+                    continue;
+
+                this.Tiles[x][y].toggle();
+            }
+        }
+
+        for (let x = 20; x < 24; x++) {
+            for (let y = 9; y < this.yTiles - 12; y++) {
+
+                this.Tiles[x][y].toggle();
+            }
+        }
+
+        for (let x = 37; x < 41; x++) {
+            for (let y = 9; y < this.yTiles - 12; y++) {
+                this.Tiles[x][y].toggle();
+            }
+        }
+
+        for (let x = this.xTiles - 8; x < this.xTiles - 4; x++) {
+            if (x == this.xTiles - 6)
+                continue;
+
+            for (let y = 9; y < this.yTiles - 12; y++) {
                 this.Tiles[x][y].toggle();
             }
         }
@@ -207,6 +258,7 @@ export class Board {
         }
         else if (this.introFlashes == 2) {
             this.LoadMainTemplate();
+            this.introPlaying = false;
         }
 
         this.Draw();
@@ -237,7 +289,10 @@ export class Gunner {
             this.AIControl();
 
         this.Move();
-        this.Draw();
+
+        if (!this.board.introPlaying)
+            this.Draw();
+
         this.UpdateMissiles();
     }
 
@@ -467,9 +522,10 @@ class Missile {
 }
 
 export class Hints {
-    constructor(x, y) {
+    constructor(x, y, board) {
         this.pos = [x, y];
         this.displayText = "";
+        this.board = board;
     }
 
     Draw() {
@@ -483,7 +539,8 @@ export class Hints {
     }
 
     Update() {
-        this.Draw();
+        if (!this.board.introPlaying)
+            this.Draw();
     }
 }
 
