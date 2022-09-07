@@ -198,7 +198,7 @@
 .back-button-container{
     display: flex;
     flex-direction: column;
-    padding-top: 20px;
+    padding-top: 23px;
     padding-left: 10px;
 }
 
@@ -222,6 +222,7 @@
     font-family: retro;
     font-size: 8px;
     padding-top: 3px;
+    padding-left: 10px;
     color: #2E4971;
 }
 
@@ -468,4 +469,58 @@
     display: flex;
     flex-direction: column;
     max-width: 70%;
+}
+
+.projects-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.projects-grid-container{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-content: center;
+    justify-content: center;
+}
+
+.project-container {
+    min-width: 30%;
+}
+
+.project-collapse-label {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    white-space: nowrap;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+}
+
+.project-label-text {
+    color: #2E4971 !important;
+    font-family: retro;
+}
+
+.project-label-image {
+    height: auto;
+    width: auto;
+    max-height: 175px;
+    max-width: 161px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.project-button{
+    height: 25px;
+    width: 25px;
+    background-color: #902B41;
+    border-radius: 50%;
+    margin-right: auto;
+    align-content: center;
+}
+
+.project-button:hover{
+    background-color: #791B2F;
 }
