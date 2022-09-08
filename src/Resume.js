@@ -5,7 +5,7 @@ function Resume() {
     return (
         <div className="resume-container">
             <PageTitle title={"My Resume"} />
-            <embed src="Jacob_Gonos_Resume.pdf" width="747px" height="885" />
+            <embed className="resume-embed" src="Jacob_Gonos_Resume.pdf" />
         </div>
     );
 }

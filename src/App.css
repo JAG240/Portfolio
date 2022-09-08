@@ -450,8 +450,8 @@
 .profile-picture{
     height: auto;
     width: auto;
-    max-height:350px;
-    max-width:322px;
+    max-height:320px;
+    max-width:350px;
     margin-right: auto;
     margin-left: auto;
     padding-top: 40px;
@@ -468,28 +468,40 @@
 .resume-container{
     display: flex;
     flex-direction: column;
-    max-width: 70%;
+    max-width: 80%;
 }
 
-.projects-container{
+.resume-embed {
+    padding: 15px;
+    border-radius: 45px;
+    width: 747px;
+    height: 885px;
+}
+
+.projects-container {
     display: flex;
     flex-direction: column;
 }
 
-.projects-grid-container{
-    display: grid;
-    grid-template-columns: auto auto auto;
+.projects-select-container{
+    display: flex;
+    flex-direction: column;
     align-content: center;
     justify-content: center;
 }
 
 .project-container {
-    min-width: 30%;
+    align-content: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 70%;
 }
 
 .project-collapse-label {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template: auto auto auto;
+    flex-direction: row;
     align-content: center;
     justify-content: center;
     white-space: nowrap;
@@ -506,11 +518,21 @@
 .project-label-image {
     height: auto;
     width: auto;
-    max-height: 175px;
-    max-width: 161px;
+    height: 150px;
+    width: 150px;
     margin-right: auto;
     margin-left: auto;
+    border: 4px solid transparent;
+    border-radius: 50%;
 }
+
+    .project-label-image:hover {
+        border: 4px solid #902B41;
+    }
+
+    .project-label-image.selected{
+        border: 4px solid #902B41;
+    }
 
 .project-button{
     height: 25px;
@@ -523,4 +545,38 @@
 
 .project-button:hover{
     background-color: #791B2F;
+}
+
+.project-collapse-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project-body-container {
+    display: flex;
+    flex-direction: column;
+    background: #D0CABE;
+    border-radius: 15px 15px 60px 15px;
+    padding: 30px;
+    min-width: 100vh;
+}
+
+    .project-body-container.hidden {
+        padding: 0px;
+        max-height: 0px;
+        max-width: 0px;
+        overflow: hidden;
+    }
+
+.project-batch-container{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
