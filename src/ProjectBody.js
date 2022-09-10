@@ -42,7 +42,7 @@ function ProjectBody() {
             <div className="navigation-panel-container">
                 {prevProject != null ? <NavProjectButton curProject={prevProject} /> : null}
                 <div className="nav-project-container">
-                    <a href="/projects">Back to Project List</a>
+                    <a href="/projects" className="nav-back-text">Back to Project List</a>
                 </div>
                 {nextProject != null ? <NavProjectButton curProject={nextProject} /> : null}
             </div>

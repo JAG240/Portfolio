@@ -1,45 +1,48 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GameScreen, Board, Gunner, Hints, Link } from './GameObjects.js';
+
+var xTiles = 64;
+var yTiles = 32;
+
+const screen = new GameScreen();
+
+const board = new Board(xTiles, yTiles);
+board.Init();
+board.skipIntro = sessionStorage.getItem("skipIntro") == "true" ? true : false;
+
+if (sessionStorage.getItem("skipIntro") == null) {
+    sessionStorage.setItem("skipIntro", true);
+}
+
+board.LoadTileLayout(board.Tiles);
+screen.AddObject(board)
+
+const gunner = new Gunner(board.tileWidth * (xTiles / 2), board.tileHeight * (yTiles - 2), board);
+screen.AddObject(gunner);
+
+const hints = new Hints(board.tileWidth * 2, (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
+hints.displayText = "Shoot or click page names to navigate";
+screen.AddObject(hints);
+
+const introState = new Hints((board.tileWidth * board.xTiles) - (board.tileWidth * 14), (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
+
+introState.displayText = sessionStorage.getItem("skipIntro") == "true" ? "Down: enable intro" : "Down: disable intro";
+
+screen.AddObject(introState);
+
+const aboutLink = new Link(10, 15, "About Me", board, 1, "./about");
+screen.AddObject(aboutLink);
+
+const projectsLink = new Link(25, 15, "My Projects", board, 1, "./projects");
+screen.AddObject(projectsLink);
+
+const resumeLink = new Link(44, 15, "My Resume", board, 1, "./resume");
+screen.AddObject(resumeLink);
 
 function GameCanvas() {
 
-    var xTiles = 64;
-    var yTiles = 32;
-
-    const screen = new GameScreen();
-
-    const board = new Board(xTiles, yTiles);
-    board.Init();
-    board.skipIntro = sessionStorage.getItem("skipIntro") == "true" ? true : false;
-
-    if (sessionStorage.getItem("skipIntro") == null) {
-        sessionStorage.setItem("skipIntro", true);
-    }
-
-    board.LoadTileLayout(board.Tiles);
-    screen.AddObject(board)
-
-    const gunner = new Gunner(board.tileWidth * (xTiles / 2), board.tileHeight * (yTiles - 2), board);
-    screen.AddObject(gunner);
-
-    const hints = new Hints(board.tileWidth * 2, (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
-    hints.displayText = "Shoot or click page names to navigate";
-    screen.AddObject(hints);
-
-    const introState = new Hints((board.tileWidth * board.xTiles) - (board.tileWidth * 14), (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
-
-    introState.displayText = sessionStorage.getItem("skipIntro") == "true" ? "Down: enable intro" : "Down: disable intro";
-
-    screen.AddObject(introState);
-
-    const aboutLink = new Link(10, 15, "About Me", board, 1, "./about");
-    screen.AddObject(aboutLink);
-
-    const projectsLink = new Link(25, 15, "My Projects", board, 1, "./projects");
-    screen.AddObject(projectsLink);
-
-    const resumeLink = new Link(44, 15, "My Resume", board, 1, "./resume");
-    screen.AddObject(resumeLink);
+    const [cursorState, setCursor] = useState('');
+    const [mouseOverLink, setMouseOverLink] = useState(null);
 
     function setIntro() {
 
@@ -62,12 +65,17 @@ function GameCanvas() {
         }, 10);
     }, []);
 
-    function GetMouseOnCanvas(e) {
+    function GetTile(e) {
         var cRect = document.getElementById("gameCanvas").getBoundingClientRect();
         var yOffSet = parseInt(window.getComputedStyle(document.getElementById("intro-container"), null).getPropertyValue('padding-bottom'));
         var canvasX = Math.round(e.clientX - cRect.left) * 2;
         var canvasY = Math.round(e.clientY - (cRect.top + yOffSet)) * 2;
         var tile = board.GetTile(canvasX, canvasY);
+        return tile;
+    }
+
+    function GetMouseOnCanvas(e) {
+        var tile = GetTile(e);
 
         if (tile.link != '')
             window.location.href = tile.link;
@@ -79,6 +87,40 @@ function GameCanvas() {
 
     const Shoot = () => {
         gunner.Shoot();
+    }
+
+    const CheckForClickable = (e) => {
+        var tile = GetTile(e);
+
+        if (tile && tile.link != '') {
+            setCursor('pointer');
+
+            var linkPath = tile.link;
+
+            switch (linkPath) {
+                case './about':
+                    aboutLink.mouseOver = true;
+                    setMouseOverLink(aboutLink);
+                    break;
+                case './projects':
+                    projectsLink.mouseOver = true;
+                    setMouseOverLink(projectsLink);
+                    break;
+                case './resume':
+                    resumeLink.mouseOver = true;
+                    setMouseOverLink(resumeLink)
+                    break;
+            }
+
+        }
+        else {
+            setCursor('');
+
+            if (mouseOverLink) {
+                mouseOverLink.mouseOver = false;
+                setMouseOverLink(null);
+            }
+        }
     }
 
     return (
@@ -96,7 +138,7 @@ function GameCanvas() {
                     </div>
                 </div>
                 <div className="canvas-container">
-                    <canvas onClick={(e) => GetMouseOnCanvas(e)} id="gameCanvas" width={board.tileWidth * xTiles} height={board.tileHeight * yTiles} className="GameCanvas"></canvas>
+                    <canvas onClick={(e) => GetMouseOnCanvas(e)} style={{ cursor: cursorState }} onMouseMove={(e) => CheckForClickable(e)} id="gameCanvas" width={board.tileWidth * xTiles} height={board.tileHeight * yTiles} className="GameCanvas"></canvas>
                 </div>
             </div>
             <div className="under-text-container">

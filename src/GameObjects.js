@@ -128,7 +128,14 @@ export class Board {
     }
 
     GetTile(x, y) {
-        return this.Tiles[Math.floor(x / this.tileWidth)][Math.floor(y / this.tileHeight)];
+
+        var x = Math.floor(x / this.tileWidth);
+        var y = Math.floor(y / this.tileHeight);
+
+        if (x >= this.xTiles || y >= this.yTiles)
+            return null;
+
+        return this.Tiles[x][y];
     }
 
     GetConnectedTiles(x, y) {
@@ -569,9 +576,23 @@ export class Link {
         this.textWidth = 0;
         this.textHeight = height * this.board.tileHeight;
         this.path = path;
+        this.mouseOver = false;
     }
 
     Draw() {
+
+        document.getElementById("gameCanvas").getContext('2d').beginPath();
+        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3A6A40';
+        document.getElementById('gameCanvas').getContext('2d').rect(this.pos[0], this.pos[1] - (this.textHeight - 3), this.textWidth, this.textHeight);
+        document.getElementById('gameCanvas').getContext('2d').stroke();
+
+        if (this.mouseOver) {
+        document.getElementById('gameCanvas').getContext('2d').fillStyle = '#B8CD93';
+        document.getElementById('gameCanvas').getContext('2d').fill();
+        }
+
+        document.getElementById('gameCanvas').getContext('2d').closePath();
+
         document.getElementById("gameCanvas").getContext('2d').beginPath();
         document.getElementById('gameCanvas').getContext('2d').font = `${this.textHeight}px gameboy`;
 
@@ -579,13 +600,6 @@ export class Link {
         document.getElementById('gameCanvas').getContext('2d').fillText(this.text, this.pos[0], this.pos[1]);
 
         this.MeasureTextWidth();
-
-        document.getElementById('gameCanvas').getContext('2d').closePath();
-
-        document.getElementById("gameCanvas").getContext('2d').beginPath();
-        document.getElementById("gameCanvas").getContext('2d').strokeStyle = '#3A6A40';
-        document.getElementById('gameCanvas').getContext('2d').rect(this.pos[0], this.pos[1] - (this.textHeight - 3), this.textWidth, this.textHeight);
-        document.getElementById('gameCanvas').getContext('2d').stroke();
 
         document.getElementById('gameCanvas').getContext('2d').closePath();
 
@@ -610,8 +624,6 @@ export class Link {
 
         for (let x = convertedPos[0]; x <= convertedPos[0] + xTiles; x++) {
             for (let y = convertedPos[1]; y > convertedPos[1] - yTiles; y--) {
-                /*if (!this.board.Tiles[x][y].active)
-                    this.board.Tiles[x][y].toggle();*/
 
                 if (this.board.Tiles[x][y])
                     this.board.Tiles[x][y].link = this.path;
