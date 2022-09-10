@@ -617,8 +617,8 @@ export class Link {
     }
 
     RegisterTiles() {
-        var yTiles = Math.floor(this.textHeight / this.board.tileHeight);
-        var xTiles = Math.floor(this.textWidth / this.board.tileWidth);
+        var yTiles = Math.floor(this.textHeight / this.board.tileHeight) + 2;
+        var xTiles = Math.floor(this.textWidth / this.board.tileWidth) + 2;
 
         var convertedPos = [(this.pos[0] / this.board.tileWidth), (this.pos[1] / this.board.tileHeight) - 1];
 

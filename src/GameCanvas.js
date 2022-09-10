@@ -68,8 +68,9 @@ function GameCanvas() {
     function GetTile(e) {
         var cRect = document.getElementById("gameCanvas").getBoundingClientRect();
         var yOffSet = parseInt(window.getComputedStyle(document.getElementById("intro-container"), null).getPropertyValue('padding-bottom'));
-        var canvasX = Math.round(e.clientX - cRect.left) * 2;
-        var canvasY = Math.round(e.clientY - (cRect.top + yOffSet)) * 2;
+        var canvasX = Math.floor(e.clientX - cRect.left) * 2;
+        var canvasY = Math.floor(e.clientY - (cRect.top + yOffSet)) * 2;
+        console.log(Math.floor(canvasX / board.tileWidth) + ", " + Math.floor(canvasY / board.tileHeight));
         var tile = board.GetTile(canvasX, canvasY);
         return tile;
     }
