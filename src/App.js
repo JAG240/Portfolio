@@ -7,19 +7,22 @@ import ProjectBody from './ProjectBody';
 import Resume from './Resume';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ProjectsProvider } from './ProjectsContext';
+import { AboutProvider } from './AboutContext';
 
 function App() {
     return (
         <Router>
             <div className="App">
                 <ProjectsProvider>
+                    <AboutProvider>
                     <Routes>
                         <Route path="/about" element={<About />} />
                         <Route path="/projects" exact element={<Projects />} />
                         <Route path="/projects/:id" element={ <ProjectBody />} />
                         <Route path="/resume" element={<Resume /> } />
                         <Route path="/" exact element={<GameCanvas />} />
-                    </Routes>
+                        </Routes>
+                    </AboutProvider>
                 </ProjectsProvider>
             </div>
         </Router>

@@ -1,15 +1,22 @@
 import React, { useState, useContext } from 'react';
 import ProfilePicture from './profile_picture.jpg';
 import PageTitle from './PageTitle';
-import aboutText from './AboutContext';
+import { AboutContext } from './AboutContext';
 
 function About() {
+
+    const [about, setAbout] = useContext(AboutContext)
+
     return (
         <div className="about-container">
             <PageTitle title={ "About Me" } />
             <div className="about-content-container">
                 <img src={ProfilePicture} alt="Picture of me" className="profile-picture" />
-                <span className="about-me-text">{aboutText}</span>
+                <div className="about-text-container">
+                    <span className="about-me-text">{about.aboutText}</span>
+                    <span className="sub-header"> My Self-taught Environment</span>
+                    <span className="about-me-text">If you view my <a href="/projects" className="nav-back-text">projects page</a>{about.environmentText}</span>
+                </div>
             </div>
         </div>
     );

@@ -37,14 +37,18 @@ function ProjectBody() {
         <div className="projects-container">
             <PageTitle title={project.name} />
             <div className="project-body-container">
+                <img src={`/gifs/${project.gif}`} className="project-image" />
+                <span className="project-sub-header">Summary</span>
                 <span style={{ color: '#000000' }}>{project.summary}</span>
             </div>
-            <div className="navigation-panel-container">
-                {prevProject != null ? <NavProjectButton curProject={prevProject} /> : null}
-                <div className="nav-project-container">
-                    <a href="/projects" className="nav-back-text">Back to Project List</a>
+            <div className="navigation">
+                <div className="navigation-panel-container">
+                    {prevProject != null ? <NavProjectButton curProject={prevProject} /> : null}
+                    <div className="nav-project-container">
+                        <a href="/projects" className="nav-back-text">Back to Project List</a>
+                    </div>
+                    {nextProject != null ? <NavProjectButton curProject={nextProject} /> : null}
                 </div>
-                {nextProject != null ? <NavProjectButton curProject={nextProject} /> : null}
             </div>
         </div>
         );

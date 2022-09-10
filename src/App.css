@@ -461,6 +461,11 @@ html, body, root {
     justify-content: center;
 }
 
+.about-text-container{
+    display: flex;
+    flex-direction: column;
+}
+
 .profile-picture{
     height: auto;
     width: auto;
@@ -475,10 +480,16 @@ html, body, root {
 .about-me-text{
     color: #000000;
     padding: 50px;
-    text-align: center;
+    text-align: left;
 }
 
-.resume-container{
+.sub-header {
+    color: #2E4971;
+    font-family: retro;
+    padding-left: 60px;
+}
+
+.resume-container {
     display: flex;
     flex-direction: column;
     max-width: 80%;
@@ -494,12 +505,20 @@ html, body, root {
 .projects-container {
     display: flex;
     flex-direction: column;
+    max-width: 50%;
+    align-content: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.projects-select-container {
+.projects-body-container {
     background: #FFFDFA;
     border-radius: 20px;
     border: 2px solid #D0CABE;
+}
+
+.projects-select-container {
     display: grid;
     grid-template-columns: auto auto auto;
     align-content: center;
@@ -509,16 +528,29 @@ html, body, root {
 .project-container {
     display: flex;
     flex-direction: column;
-    min-width: 70%;
+    width: 250px;
     align-content: center;
     justify-content: center;
     white-space: nowrap;
     padding: 30px;
 }
 
+.projects-intro-text-container{
+    padding: 20px;
+    align-content: center;
+    justify-content: center;
+}
+
+.projects-intro-text {
+    color: #000000;
+    text-align: center;
+}
+
 .project-label-text {
     color: #2E4971 !important;
     font-family: retro;
+    text-align: center;
+    font-size: 12px;
 }
 
 .project-label-image {
@@ -558,23 +590,31 @@ html, body, root {
     flex-direction: row;
     align-content: center;
     justify-content: center;
-    position: absolute;
-    bottom: 0px;
     padding: 20px;
 }
 
-.nav-project-container{
-    display:flex;
+.navigation {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    bottom: 0px;
+    position: sticky;
+}
+
+.nav-project-container {
+    display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
+    width: 150px;
 }
 
 .project-nav-image {
     height: auto;
     width: auto;
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
     margin-right: auto;
     margin-left: auto;
     border: 4px solid transparent;
@@ -598,3 +638,14 @@ html, body, root {
     .nav-back-text:hover {
         background-color: #B8CD93;
     }
+
+.project-sub-header {
+    color: #2E4971;
+    font-family: retro;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.project-image{
+    max-width:700px;
+}
