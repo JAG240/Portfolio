@@ -7,11 +7,7 @@ function PageTitle({ title }) {
     const navigate = useNavigate();
 
     const RedirectHome = () => {
-        window.location.href = "./"
-    }
-
-    const RedirectBack = () => {
-        navigate(-1);
+        navigate('/');
     }
 
     return (
@@ -30,8 +26,8 @@ function PageTitle({ title }) {
                     <span className="back-label">Home</span>
                 </div>
                 <div className="back-button-container">
-                    <button className="back-button" onClick={RedirectBack}></button>
-                    <span className="back-label">Back</span>
+                    <button className="back-button"></button>
+                    <span className="back-label">Start</span>
                 </div>
              </div>
         </div>

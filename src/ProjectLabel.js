@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
-import ProfilePicture from './profile_picture.jpg';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function ProjectLabel({ setCollapseID, name, ID, collapseID, thumbnail }) {
+function ProjectLabel({ name, ID, thumbnail }) {
+
+    let navigate = useNavigate();
+
+    const routeChange = () => {
+        navigate(`/projects/${ID}`);
+    }
+
     return (
-        <div className="project-container" onClick={() => setCollapseID(ID.toString())}>
-            <div className="project-collapse-label">
-                <img src={`/thumbnails/${thumbnail}`} className={`project-label-image ${collapseID == ID ? 'selected' : ''}`} />
-                <span style={{ color: '#000000' }} className="project-label-text">{name}</span>
-            </div>
+        <div className="project-container" onClick={routeChange}>
+            <img src={`/thumbnails/${thumbnail}`} className='project-label-image' />
+            <span style={{ color: '#000000' }} className="project-label-text">{name}</span>
         </div>
         );
 }

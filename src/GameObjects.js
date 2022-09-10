@@ -65,6 +65,7 @@ export class Board {
         this.controlsEnabled = false;
         this.introPlaying = true;
         this.skipIntro = false;
+        this.firstView = false;
     }
 
     Init() {
@@ -268,6 +269,11 @@ export class Board {
         else if (this.introFlashes == 2) {
             this.LoadMainTemplate();
             this.introPlaying = false;
+
+            if (this.firstView) {
+                this.firstView = false;
+                this.skipIntro = true;
+            }
         }
 
         this.Draw();
@@ -530,6 +536,7 @@ class Missile {
     }
 }
 
+//Hints will be displayed on the screen
 export class Hints {
     constructor(x, y, board) {
         this.pos = [x, y];
@@ -553,6 +560,7 @@ export class Hints {
     }
 }
 
+//Links are to shot 
 export class Link {
     constructor(x, y, text, board, height, path) {
         this.pos = [x * board.tileWidth, y * board.tileHeight];
