@@ -36,7 +36,7 @@ function ProjectBody() {
     return (
         <div className="projects-container">
             <PageTitle title={project.name} />
-            <div>
+            <div className="project-body-container">
                 <span style={{ color: '#000000' }}>{project.summary}</span>
             </div>
             <div className="navigation-panel-container">

@@ -7,17 +7,22 @@
     src: url(SuperRetro.ttf);
 }
 
-.root {
-    background: #FFFDFA;
+html, body, root {
+    height: 100%;
+    background-image: url('background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .App {
-    background: #FFFDFA;
+    background-image: url('background.jpg');
+    background-size: cover;
     color: white;
     display: flex;
     flex-direction: row;
     align-content: center;
     justify-content: center;
+    height: 100%;
 }
 
 .GameCanvas {
@@ -96,6 +101,7 @@
 }
 
 .game-container {
+    background: #FFFDFA;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -440,8 +446,11 @@
     max-width: 70%;
 }
 
-.about-content-container{
-    display:flex;
+.about-content-container {
+    background: #FFFDFA;
+    border-radius: 20px;
+    border: 2px solid #D0CABE;
+    display: flex;
     flex-direction: row;
     align-content: center;
     justify-content: center;
@@ -452,10 +461,9 @@
     width: auto;
     max-height:320px;
     max-width:350px;
-    margin-right: auto;
-    margin-left: auto;
     padding-top: 40px;
     padding-bottom: 40px;
+    padding-left: 20px;
     border-radius: 50%;
 }
 
@@ -484,6 +492,9 @@
 }
 
 .projects-select-container {
+    background: #FFFDFA;
+    border-radius: 20px;
+    border: 2px solid #D0CABE;
     display: grid;
     grid-template-columns: auto auto auto;
     align-content: center;
@@ -522,38 +533,29 @@
     }
 
 .project-body-container {
+    background: #FFFDFA;
+    border-radius: 20px;
+    border: 2px solid #D0CABE;
     display: flex;
     flex-direction: column;
-    padding-left: 80px;
-    padding-right: 80px;
-    padding-top: 37px;
-    padding-bottom: 60px;
-    background: #878074;
-    border-radius: 15px 15px 60px 15px;
-}
-
-.project-body-text {
-    font-family: gameboy;
-    color: #76A07B;
-}
-
-.project-body-border {
-    display: flex;
-    flex-direction: column;
-    background: #EEF4E4;
-    border: 2px solid #000000;
-    border-radius: 35px;
+    min-width: 70%;
+    align-content: center;
+    justify-content: center;
+    white-space: nowrap;
     padding: 30px;
-    min-width: 100vh;
 }
 
 .navigation-panel-container {
+    background: #FFFDFA;
+    border-radius: 20px;
+    border: 2px solid #D0CABE;
     display: flex;
     flex-direction: row;
     align-content: center;
     justify-content: center;
     position: absolute;
     bottom: 0px;
+    padding: 20px;
 }
 
 .nav-project-container{
