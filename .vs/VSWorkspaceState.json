@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\public",
+    "\\public\\gifs",
+    "\\public\\thumbnails",
     "\\src"
   ],
-  "SelectedNode": "\\public\\DefaultTileLayout.csv",
+  "SelectedNode": "\\public\\gifs\\erp_mock.PNG",
   "PreviewInSolutionExplorer": false
 }

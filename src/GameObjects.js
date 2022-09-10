@@ -84,7 +84,7 @@ export class Board {
         if (this.skipIntro)
             return;
 
-        const filePath = "http://localhost:3000/DefaultTileLayout.csv";
+        const filePath = "/DefaultTileLayout.csv";
         var xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onload = function () {
