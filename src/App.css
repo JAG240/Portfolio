@@ -25,7 +25,7 @@ html, body, root {
     height: 100%;
 }
 
-.GameCanvas {
+.game-canvas {
     background: #EEF4E4;
     width: 100%;
     height: 100%;
@@ -653,4 +653,9 @@ html, body, root {
 
 .project-text{
     color: #000000;
+}
+
+.project-list-item{
+    color: #000000;
+    list-style: square outside;
 }

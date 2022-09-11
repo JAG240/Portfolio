@@ -5,6 +5,7 @@ import About from './About';
 import Projects from './Projects';
 import ProjectBody from './ProjectBody';
 import Resume from './Resume';
+import Footer from './Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ProjectsProvider } from './ProjectsContext';
 import { AboutProvider } from './AboutContext';
@@ -24,6 +25,7 @@ function App() {
                         </Routes>
                     </AboutProvider>
                 </ProjectsProvider>
+                <Footer />
             </div>
         </Router>
     );

@@ -40,13 +40,21 @@ function ProjectBody() {
                 <img src={`/gifs/${project.gif}`} className="project-image" />
                 <span className="project-sub-header">Summary</span>
                 <span className="project-text">{project.summary}</span>
+                <span className="project-sub-header">Resources</span>
+                <ul>
+                {project.usedTech.map(tech => (
+                    <React.Fragment key={tech}>
+                        <li className="project-list-item">{tech}</li>
+                    </React.Fragment>
+                ))}
+                </ul>
                 {project.subheaders.map(header => (
                     <React.Fragment key={header.header}>
                         <span className="project-sub-header">{header.header}</span>
                         <span className="project-text">{header.text}</span>
                     </React.Fragment>
                 ))}
-                <span className="project-sub-header">Sources</span>
+                <span className="project-sub-header">Tech Stack</span>
                 <ul>
                 {project.links.map(link => (
                     <React.Fragment key={link.name}>

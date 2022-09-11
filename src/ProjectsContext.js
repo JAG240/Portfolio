@@ -16,6 +16,7 @@ export const ProjectsProvider = props => {
                       a small mock ERP system. ",
             thumbnail: "erp_mock.PNG",
             gif: "erp_mock.PNG",
+            usedTech: ["PHP","HTML","CSS","MySQL","WampServer"],
             subheaders: [
                 {
                     header: "ITAD ERP",
@@ -45,6 +46,7 @@ export const ProjectsProvider = props => {
             summary: "My first game created without a set tutorial.",
             thumbnail: "bird_game_thumb.PNG",
             gif: "bird_game.gif",
+            usedTech: [],
             subheaders: [
                 {
                     header: "",
@@ -64,6 +66,7 @@ export const ProjectsProvider = props => {
             summary: "School project used to introduce me to basics of web development.",
             thumbnail: "pokemon_map_thumb.PNG",
             gif: "pokemon_map.gif",
+            usedTech: [],
             subheaders: [
                 {
                     header: "",
@@ -83,6 +86,7 @@ export const ProjectsProvider = props => {
             summary: "2D physics driven game designed as mobile app.",
             thumbnail: "hotdog_game_thumb.PNG",
             gif: "hotdog_game.gif",
+            usedTech: [],
             subheaders: [
                 {
                     header: "",
@@ -102,6 +106,7 @@ export const ProjectsProvider = props => {
             summary: "Integrated library with unity to run re-enforcement learning algorithims.",
             thumbnail: "machine_learning_thumb.PNG",
             gif: "machine_learning.gif",
+            usedTech: [],
             subheaders: [
                 {
                     header: "",
@@ -121,6 +126,7 @@ export const ProjectsProvider = props => {
             summary: "Inspired by Rimworld attempted to create a faithful clone and learned difficult topics.",
             thumbnail: "colony_game_thumb.PNG",
             gif: "colony_game.gif",
+            usedTech: [],
             subheaders: [
                 {
                     header: "",
@@ -140,6 +146,7 @@ export const ProjectsProvider = props => {
             summary: "After reading design pattern book, I wanted to implement into project to apply the knowledge.",
             thumbnail: "design_patterns_thumbnail.PNG",
             gif: "design_patterns.gif",
+            usedTech: [],
             subheaders: [
                 {
                     header: "",
@@ -159,6 +166,7 @@ export const ProjectsProvider = props => {
             summary: "First project using unity netcode. Applied shader knowledge.",
             thumbnail: "fishing_game_thumb.png",
             gif: "fishing_game.gif",
+            usedTech: [],
             subheaders: [
                 {
                     header: "",
@@ -178,6 +186,7 @@ export const ProjectsProvider = props => {
             summary: "Getting comfortable with using unity assets. First dive into sound design and level design.",
             thumbnail: "horror_game_thumb.png",
             gif: "horror_game.gif",
+            usedTech: [],
             subheaders: [
                 {
                     header: "",
@@ -197,6 +206,7 @@ export const ProjectsProvider = props => {
             summary: "First time using react. Revisiting web development.",
             thumbnail: "portfolio_thumb.png",
             gif: "portfolio.gif",
+            usedTech: [],
             subheaders: [
                 {
                     header: "",

@@ -4,9 +4,9 @@ import { GameScreen, Board, Gunner, Hints, Link } from './GameObjects.js';
 var xTiles = 64;
 var yTiles = 32;
 
-const screen = new GameScreen();
+let screen = new GameScreen();
 
-const board = new Board(xTiles, yTiles);
+let board = new Board(xTiles, yTiles);
 board.Init();
 board.skipIntro = sessionStorage.getItem("skipIntro") == "true" ? true : false;
 
@@ -17,26 +17,26 @@ if (sessionStorage.getItem("skipIntro") == null) {
 board.LoadTileLayout(board.Tiles);
 screen.AddObject(board)
 
-const gunner = new Gunner(board.tileWidth * (xTiles / 2), board.tileHeight * (yTiles - 2), board);
+let gunner = new Gunner(board.tileWidth * (xTiles / 2), board.tileHeight * (yTiles - 2), board);
 screen.AddObject(gunner);
 
-const hints = new Hints(board.tileWidth * 2, (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
+let hints = new Hints(board.tileWidth * 2, (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
 hints.displayText = "Shoot or click page names to navigate";
 screen.AddObject(hints);
 
-const introState = new Hints((board.tileWidth * board.xTiles) - (board.tileWidth * 14), (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
+let introState = new Hints((board.tileWidth * board.xTiles) - (board.tileWidth * 14), (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
 
 introState.displayText = sessionStorage.getItem("skipIntro") == "true" ? "Down: enable intro" : "Down: disable intro";
 
 screen.AddObject(introState);
 
-const aboutLink = new Link(10, 15, "About Me", board, 1, "./about");
+let aboutLink = new Link(10, 15, "About Me", board, 1, "./about");
 screen.AddObject(aboutLink);
 
-const projectsLink = new Link(25, 15, "My Projects", board, 1, "./projects");
+let projectsLink = new Link(25, 15, "My Projects", board, 1, "./projects");
 screen.AddObject(projectsLink);
 
-const resumeLink = new Link(44, 15, "My Resume", board, 1, "./resume");
+let resumeLink = new Link(44, 15, "My Resume", board, 1, "./resume");
 screen.AddObject(resumeLink);
 
 function GameCanvas() {
@@ -70,7 +70,6 @@ function GameCanvas() {
         var yOffSet = parseInt(window.getComputedStyle(document.getElementById("intro-container"), null).getPropertyValue('padding-bottom'));
         var canvasX = Math.floor(e.clientX - cRect.left) * 2;
         var canvasY = Math.floor(e.clientY - (cRect.top + yOffSet)) * 2;
-        console.log(Math.floor(canvasX / board.tileWidth) + ", " + Math.floor(canvasY / board.tileHeight));
         var tile = board.GetTile(canvasX, canvasY);
         return tile;
     }
@@ -139,7 +138,7 @@ function GameCanvas() {
                     </div>
                 </div>
                 <div className="canvas-container">
-                    <canvas onClick={(e) => GetMouseOnCanvas(e)} style={{ cursor: cursorState }} onMouseMove={(e) => CheckForClickable(e)} id="gameCanvas" width={board.tileWidth * xTiles} height={board.tileHeight * yTiles} className="GameCanvas"></canvas>
+                    <canvas onClick={(e) => GetMouseOnCanvas(e)} style={{ cursor: cursorState }} onMouseMove={(e) => CheckForClickable(e)} id="gameCanvas" width={board.tileWidth * xTiles} height={board.tileHeight * yTiles} className="game-canvas"></canvas>
                 </div>
             </div>
             <div className="under-text-container">

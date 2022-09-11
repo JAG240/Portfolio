@@ -10,6 +10,9 @@ export class GameScreen {
 
     Update = () => {
 
+        if (document.readyState != "complete")
+            return;
+
         this.Clear();
 
         this.Objects.forEach(obj => {
