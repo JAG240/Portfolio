@@ -28,7 +28,7 @@ function ProjectBody() {
         return (
             <div className="nav-project-container" onClick={() => routeChange(curProject.id)}>
                 <img src={`/thumbnails/${curProject.thumbnail}`} className='project-nav-image' />
-                <span style={{ color: '#000000' }} className="project-label-text">{curProject.name}</span>
+                <span className="project-label-text">{curProject.name}</span>
             </div>
         );
     }
@@ -39,7 +39,21 @@ function ProjectBody() {
             <div className="project-body-container">
                 <img src={`/gifs/${project.gif}`} className="project-image" />
                 <span className="project-sub-header">Summary</span>
-                <span style={{ color: '#000000' }}>{project.summary}</span>
+                <span className="project-text">{project.summary}</span>
+                {project.subheaders.map(header => (
+                    <React.Fragment key={header.header}>
+                        <span className="project-sub-header">{header.header}</span>
+                        <span className="project-text">{header.text}</span>
+                    </React.Fragment>
+                ))}
+                <span className="project-sub-header">Sources</span>
+                <ul>
+                {project.links.map(link => (
+                    <React.Fragment key={link.name}>
+                        <li><a className="nav-back-text" href={link.src}>{link.name}</a></li>
+                    </React.Fragment>
+                ))}
+                </ul>
             </div>
             <div className="navigation">
                 <div className="navigation-panel-container">
