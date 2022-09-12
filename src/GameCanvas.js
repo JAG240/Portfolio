@@ -8,11 +8,8 @@ let screen = new GameScreen();
 
 let board = new Board(xTiles, yTiles);
 board.Init();
+board.firstView = sessionStorage.getItem("skipIntro") == null ? true : false;
 board.skipIntro = sessionStorage.getItem("skipIntro") == "true" ? true : false;
-
-if (sessionStorage.getItem("skipIntro") == null) {
-    sessionStorage.setItem("skipIntro", true);
-}
 
 board.LoadTileLayout(board.Tiles);
 screen.AddObject(board)
@@ -26,7 +23,7 @@ screen.AddObject(hints);
 
 let introState = new Hints((board.tileWidth * board.xTiles) - (board.tileWidth * 14), (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
 
-introState.displayText = sessionStorage.getItem("skipIntro") == "true" ? "Down: enable intro" : "Down: disable intro";
+introState.displayText = sessionStorage.getItem("skipIntro") || board.firstView == "true" ? "Down: enable intro" : "Down: disable intro";
 
 screen.AddObject(introState);
 

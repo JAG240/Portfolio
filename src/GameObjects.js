@@ -283,6 +283,7 @@ export class Board {
             if (this.firstView) {
                 this.firstView = false;
                 this.skipIntro = true;
+                sessionStorage.setItem("skipIntro", true);
             }
         }
 
