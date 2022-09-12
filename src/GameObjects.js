@@ -51,7 +51,7 @@ export class Tile {
         if (!this.hasChanged)
             return;
 
-        this.canvas.clearRect(this.corner[0] - 1, this.corner[1] - 1, tileWidth, tileHeight);
+        this.canvas.clearRect(this.corner[0] - 1, this.corner[1] - 1, tileWidth + 4, tileHeight + 4);
 
         if (this.active) {
             this.canvas.beginPath();
@@ -279,6 +279,7 @@ export class Board {
 
         this.introFlashes++;
         this.controlsEnabled = true;
+        this.updated = true;
     }
 
     Update() {
