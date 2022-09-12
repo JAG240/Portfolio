@@ -21,9 +21,9 @@ let hints = new Hints(board.tileWidth * 2, (yTiles * board.tileHeight) - (board.
 hints.displayText = "Shoot or click page names to navigate";
 screen.AddObject(hints);
 
-let introState = new Hints((board.tileWidth * board.xTiles) - (board.tileWidth * 14), (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
+let introState = new Hints((board.tileWidth * board.xTiles) - (board.tileWidth * 18), (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
 
-introState.displayText = sessionStorage.getItem("skipIntro") || board.firstView == "true" ? "Down: enable intro" : "Down: disable intro";
+introState.displayText = sessionStorage.getItem("skipIntro") == "true" || board.firstView == "true" ? "Down: enable intro" : "Down: disable intro";
 
 screen.AddObject(introState);
 
@@ -60,9 +60,7 @@ function GameCanvas() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            if (document.readyState == "complete") {
-                screen.Update();
-            }
+            screen.Update();
         }, 10);
     }, []);
 
