@@ -41,6 +41,8 @@ function GameCanvas() {
     const [cursorState, setCursor] = useState('');
     const [mouseOverLink, setMouseOverLink] = useState(null);
 
+    
+
     function setIntro() {
 
         if (board.introPlaying)
@@ -58,7 +60,9 @@ function GameCanvas() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            screen.Update();
+            if (document.readyState == "complete") {
+                screen.Update();
+            }
         }, 10);
     }, []);
 

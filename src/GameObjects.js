@@ -115,7 +115,7 @@ export class Board {
             }
         }
 
-        xmlhttp.open("GET", filePath, true);
+        xmlhttp.open("GET", filePath, false);
     
         xmlhttp.send();
     }
