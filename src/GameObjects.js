@@ -6,7 +6,8 @@ export class GameScreen {
     }
 
     Clear() {
-        this.canvas.getContext('2d').clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.canvas.getContext('2d').clearRect(0, 0, Math.floor(window.innerWidth / 64) * 4, Math.floor(window.innerHeight / 32) * 32);
+        this.canvas.getContext('2d').clearRect(0, Math.floor(window.innerHeight / 32) * 28, Math.floor(window.innerWidth / 64) * 64, Math.floor(window.innerHeight / 32) * 4);
     }
 
     Update = () => {
@@ -42,9 +43,16 @@ export class Tile {
         this.active = active;
         this.link = "";
         this.canvas = null;
+        this.hasChanged = true;
     }
 
     Draw(tileWidth, tileHeight) {
+
+        if (!this.hasChanged)
+            return;
+
+        this.canvas.clearRect(this.corner[0] - 1, this.corner[1] - 1, tileWidth, tileHeight);
+
         if (this.active) {
             this.canvas.beginPath();
             this.canvas.rect(this.corner[0], this.corner[1], tileWidth, tileHeight);
@@ -53,6 +61,8 @@ export class Tile {
             this.canvas.fillStyle = '#76A07B';
             this.canvas.fill();
         }
+
+        this.hasChanged = false;
     }
 
     GetElements() {
@@ -64,6 +74,7 @@ export class Tile {
     }
 
     toggle() {
+        this.hasChanged = true;
         this.active = !this.active;
     }
 }
@@ -85,6 +96,7 @@ export class Board {
         this.skipIntro = false;
         this.firstView = false;
         this.canvas = null;
+        this.updated = true;
     }
 
     Init() {
@@ -145,6 +157,8 @@ export class Board {
         xmlhttp.open("GET", filePath, false);
     
         xmlhttp.send();
+
+        this.updated = true;
     }
 
     Draw() {
@@ -155,6 +169,7 @@ export class Board {
         });
 
         this.canvas.closePath();
+        this.updated = false;
     }
 
     GetTile(x, y) {
@@ -168,36 +183,6 @@ export class Board {
         return this.Tiles[x][y];
     }
 
-    GetConnectedTiles(x, y) {
-
-        var queriedTiles = [];
-        var connectTiles = [];
-
-        queriedTiles.push(this.GetTile(x - this.tileWidth, y));
-        queriedTiles.push(this.GetTile(x + this.tileWidth, y));
-        queriedTiles.push(this.GetTile(x, y - this.tileHeight));
-        queriedTiles.push(this.GetTile(x, y + this.tileHeight));
-
-        queriedTiles.forEach(tile => {
-            if (tile) {
-                connectTiles.push(tile);
-            }
-        });
-
-        return connectTiles;
-    }
-
-    CheckTileInColumn(x) {
-
-        for (let i = 0; i < this.yTiles; i++) {
-
-            if (this.Tiles[Math.floor(x / this.tileWidth)][i].active)
-                return true;
-        }
-
-        return false;
-    }
-
     LoadAnimationTemplate() {
         for (let x = 0; x < this.Tiles.length; x++) {
             for (let y = 0; y < this.Tiles[0].length; y++) {
@@ -207,6 +192,8 @@ export class Board {
                 }
             }
         }
+
+        this.updated = true;
     }
 
     IntroAnimation() {
@@ -228,6 +215,9 @@ export class Board {
             this.introIndex = 0;
             this.introFlashes++;
         }
+
+        this.updated = true;
+
     }
 
     LoadMainTemplate() {
@@ -314,7 +304,8 @@ export class Board {
             }
         }
 
-        this.Draw();
+        if (this.updated)
+            this.Draw();
     }
 }
 
@@ -335,13 +326,11 @@ export class Gunner {
 
     Update() {
 
-        if (this.aiEnabled)
-            this.AIControl();
+        if (this.board.introPlaying)
+            return;
 
         this.Move();
-
-        if (!this.board.introPlaying)
-            this.Draw();
+        this.Draw();
 
         this.UpdateMissiles();
     }
@@ -396,8 +385,8 @@ export class Gunner {
         this.canvas = document.getElementById("gameCanvas").getContext('2d');
     }
 
-    RemoveMissile(id) {
-
+    RemoveMissile(missle) {
+        var id = missle.id;
         var newMissiles = [];
 
         this.missiles.forEach(missile => {
@@ -422,7 +411,12 @@ class Missile {
         this.bodyHeight = this.board.tileHeight / 2;
         this.gunner = gunner;
         this.id = id;
+        this.active = true;
         this.canvas = null;
+    }
+
+    Clear() {
+        this.canvas.clearRect(this.pos[0] - 2, this.pos[1] - 3, this.bodyWidth + 3, this.bodyHeight + 10);
     }
 
     Draw() {
@@ -447,22 +441,30 @@ class Missile {
         var tile = this.board.GetTile(this.pos[0], this.pos[1]);
 
         if (tile == null) {
-            this.gunner.RemoveMissile(this.id);
+            this.active = false;
             return;
         }
 
         if (tile.active) {
-            this.gunner.RemoveMissile(this.id);
+            this.active = false;
+            this.board.updated = true;
             tile.toggle();
         }
 
         if (tile.link.length > 0) {
-            this.gunner.RemoveMissile(this.id);
+            this.active = false;
             window.location.href = tile.link;
         }
     }
 
     Update() {
+        this.Clear();
+
+        if (!this.active) {
+            this.gunner.RemoveMissile(this);
+            return;
+        }
+
         this.Move();
         this.CheckCollision();
         this.Draw();
@@ -482,6 +484,11 @@ export class Hints {
         this.canvas = document.getElementById("gameCanvas").getContext('2d');
     }
 
+    Clear() {
+        this.canvas.beginPath();
+        this.canvas.clearRect(this.pos[0], this.pos[1], 100, 100);
+    }
+
     Draw() {
         this.canvas.beginPath();
         this.canvas.font = "18px gameboy";
@@ -494,6 +501,7 @@ export class Hints {
 
     Update() {
         if (!this.board.introPlaying)
+            this.Clear();
             this.Draw();
     }
 }
@@ -511,8 +519,11 @@ export class Link {
         this.canvas = null;
     }
 
-    Draw() {
+    Clear() {
+        this.canvas.clearRect(this.pos[0], this.pos[1] + 6, this.textWidth, -this.textHeight - 6);
+    }
 
+    Draw() {
         this.canvas.beginPath();
         this.canvas.strokeStyle = '#3A6A40';
         this.canvas.rect(this.pos[0], this.pos[1] - (this.textHeight - 3), this.textWidth, this.textHeight);
@@ -568,7 +579,9 @@ export class Link {
     }
 
     Update() {
-        if (this.board.controlsEnabled)
+        if (this.board.controlsEnabled) {
+            this.Clear();
             this.Draw();
+        }
     }
 }
