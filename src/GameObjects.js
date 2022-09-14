@@ -384,7 +384,7 @@ export class Gunner {
         if (missleOffset < 5)
             misslePos += (5 - missleOffset);
         else if (missleOffset > this.board.tileWidth - (this.board.tileWidth / 4))
-            misslePos -= (this.board.tileWidth - missleOffset) + (this.board.tileWidth / 4) + 5;
+            misslePos -= (this.board.tileWidth - missleOffset) + (this.board.tileWidth / 4);
 
         var missle = new Missile(misslePos, this.pos[1], -3, this.board, this.lastMissileTime, this);
         missle.GetElements();
