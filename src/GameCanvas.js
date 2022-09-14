@@ -23,7 +23,7 @@ screen.AddObject(hints);
 
 let introState = new Hints((board.tileWidth * board.xTiles) - (board.tileWidth * 18), (yTiles * board.tileHeight) - (board.tileHeight / 4), board);
 
-introState.displayText = sessionStorage.getItem("skipIntro") == "true" || board.firstView == "true" ? "Down: enable intro" : "Down: disable intro";
+introState.displayText = sessionStorage.getItem("skipIntro") == "true" || board.firstView ? "Down: enable intro" : "Down: disable intro";
 
 screen.AddObject(introState);
 

@@ -51,11 +51,11 @@ export class Tile {
         if (!this.hasChanged)
             return;
 
-        this.canvas.clearRect(this.corner[0] - 1, this.corner[1] - 1, tileWidth + 4, tileHeight + 4);
+        this.canvas.clearRect(this.corner[0] - 1, this.corner[1] - 1, tileWidth, tileHeight);
 
         if (this.active) {
             this.canvas.beginPath();
-            this.canvas.rect(this.corner[0], this.corner[1], tileWidth, tileHeight);
+            this.canvas.rect(this.corner[0], this.corner[1], tileWidth - 2, tileHeight - 2);
             this.canvas.strokeStyle = '#3A6A40';
             this.canvas.stroke();
             this.canvas.fillStyle = '#76A07B';
@@ -201,6 +201,9 @@ export class Board {
         if (Date.now() - this.introTimer < 50) {
             return;
         }
+
+        if (!this.introPlaying)
+            this.introPlaying = true;
 
         for (let y = 0; y < this.tileTemplate[0].length; y++) {
             if (this.tileTemplate[this.introIndex][y]) {
@@ -375,7 +378,20 @@ export class Gunner {
         if (Date.now() - this.lastMissileTime < 250 || !this.board.controlsEnabled)
             return false;
 
-        var missle = new Missile(this.pos[0] + (this.board.tileWidth / 2), this.pos[1], -3, this.board, this.lastMissileTime, this);
+        var misslePos = this.pos[0] + (this.board.tileWidth / 2);
+        var missleOffset = misslePos % this.board.tileWidth;
+
+        console.log(misslePos);
+        console.log(missleOffset);
+
+        if (missleOffset < 5)
+            misslePos += (5 - missleOffset);
+        else if (missleOffset > this.board.tileWidth - 10)
+            misslePos -= (this.board.tileWidth - missleOffset) + 5;
+
+        console.log(misslePos);
+
+        var missle = new Missile(misslePos, this.pos[1], -3, this.board, this.lastMissileTime, this);
         missle.GetElements();
         this.missiles.push(missle);
         this.lastMissileTime = Date.now();
@@ -485,11 +501,6 @@ export class Hints {
         this.canvas = document.getElementById("gameCanvas").getContext('2d');
     }
 
-    Clear() {
-        this.canvas.beginPath();
-        this.canvas.clearRect(this.pos[0], this.pos[1], 100, 100);
-    }
-
     Draw() {
         this.canvas.beginPath();
         this.canvas.font = "18px gameboy";
@@ -501,8 +512,7 @@ export class Hints {
     }
 
     Update() {
-        if (!this.board.introPlaying)
-            this.Clear();
+        if (this.board.controlsEnabled)
             this.Draw();
     }
 }
