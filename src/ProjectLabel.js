@@ -10,8 +10,8 @@ function ProjectLabel({ name, ID, thumbnail }) {
     }
 
     return (
-        <div className="project-container" onClick={routeChange}>
-            <img src={`/thumbnails/${thumbnail}`} className='project-label-image' />
+        <div className="project-container">
+            <img src={`/thumbnails/${thumbnail}`} className='project-label-image' onClick={routeChange}/>
             <span style={{ color: '#000000' }} className="project-label-text">{name}</span>
         </div>
         );
