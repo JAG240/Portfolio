@@ -133,7 +133,7 @@ export const ProjectsProvider = props => {
         {
             id: 8,
             name: "Fishing Game",
-            summary: "With the pre-release of netcode for gameobjects, I could not resist the urge to take part in testing this feature. Understanding that multiplayer netcode can become a large topic with many difficult subjects, I chose to implement this in a small non-competitive game. Though this project looks simple, it applied a lot of knowledge that I had been practicing. This was the first project using 3D models designed by me. I also used this project to practice coding shaders in HLSL from which I learned an online course. Though scope creep may have prevented me from making a complete game, this project served as a good introduction to netcode and multiplayer. ",
+            summary: "With the pre-release of netcode for gameobjects, I could not resist the urge to take part in testing this feature. Understanding that multiplayer netcode can become a large topic with many difficult subjects, I chose to implement this in a small non-competitive game. Though this project looks simple, it applied a lot of knowledge that I had been practicing. This was the first project using 3D models designed by me. I also used this project to practice coding shaders in HLSL from which I learned from an online course. Though scope creep may have prevented me from making a complete game, this project served as a good introduction to netcode and multiplayer. ",
             thumbnail: "fishing_game_thumb.png",
             gif: "fishing_game.gif",
             usedTech: ["Unity Game Engine","C#","Unity Netcode"],
