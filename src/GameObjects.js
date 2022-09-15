@@ -378,13 +378,12 @@ export class Gunner {
         if (Date.now() - this.lastMissileTime < 250 || !this.board.controlsEnabled)
             return false;
 
-        var misslePos = Math.round(this.pos[0] + (this.board.tileWidth / 8) + (this.board.tileWidth / 2));
+        var misslePos = Math.round(this.pos[0] + (this.board.tileWidth / 8));
         var missleOffset = misslePos % this.board.tileWidth;
 
-        if (missleOffset < 5)
-            misslePos += (5 - missleOffset);
-        else if (missleOffset > this.board.tileWidth - (this.board.tileWidth / 4))
-            misslePos -= (this.board.tileWidth - missleOffset) + (this.board.tileWidth / 4);
+        if (missleOffset > this.board.tileWidth - (this.board.tileWidth / 4)) {
+            misslePos -= ((this.board.tileWidth - (this.board.tileWidth / 4)) - this.board.tileWidth) - 6;
+        }
 
         var missle = new Missile(misslePos, this.pos[1], -3, this.board, this.lastMissileTime, this);
         missle.GetElements();
@@ -428,7 +427,7 @@ class Missile {
     }
 
     Clear() {
-        this.canvas.clearRect(this.pos[0] - 2, this.pos[1] - 3, this.bodyWidth + 3, this.bodyHeight + 10);
+        this.canvas.clearRect(this.pos[0] - 1, this.pos[1] - 1, this.bodyWidth + 2, this.bodyHeight + 2);
     }
 
     Draw() {
