@@ -187,7 +187,7 @@ html, body, root {
     color: #76A07B;
     border: 2px solid #000000;
     border-radius: 35px;
-    font-size: 30px;
+    font-size: 2vw;
     font-family: gameboy;
     text-transform: uppercase;
     text-align: right;
@@ -715,10 +715,6 @@ html, body, root {
     .project-label-text {
         font-size: 1vw;
     }
-
-    .title-text {
-        font-size: 3vw;
-    }
 }
 
 @media only screen and (max-width: 768px){
@@ -740,7 +736,7 @@ html, body, root {
     }
 
     .title-text{
-        font-size: 3vw;
+        font-size: 1vw;
     }
 
     .profile-picture{
