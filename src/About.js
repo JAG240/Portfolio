@@ -15,7 +15,7 @@ function About() {
                 <div className="about-text-container">
                     <span className="about-me-text">{about.aboutText}</span>
                     <span className="sub-header"> My Self-taught Environment</span>
-                    <span className="about-me-text">If you view my <a href="/projects" className="nav-back-text">projects page</a>{about.environmentText}</span>
+                    <span className="about-me-text">If you view <a href="/projects" className="nav-back-text">My Projects</a> page{about.environmentText}</span>
                 </div>
             </div>
         </div>

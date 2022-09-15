@@ -26,8 +26,8 @@ function ProjectBody() {
 
     const NavProjectButton = ({curProject}) => {
         return (
-            <div className="nav-project-container" onClick={() => routeChange(curProject.id)}>
-                <img src={`/thumbnails/${curProject.thumbnail}`} className='project-nav-image' />
+            <div className="nav-project-container">
+                <img src={`/thumbnails/${curProject.thumbnail}`} className='project-nav-image' onClick={() => routeChange(curProject.id)} />
                 <span className="project-label-text">{curProject.name}</span>
             </div>
         );
@@ -38,7 +38,7 @@ function ProjectBody() {
             <PageTitle title={project.name} />
             <div className="project-body-container">
                 <img src={`/gifs/${project.gif}`} className="project-image" />
-                <span className="project-sub-header">Summary</span>
+                <span className="project-sub-header">About this project</span>
                 <span className="project-text">{project.summary}</span>
                 <span className="project-sub-header">Tech Stack</span>
                 <ul>
@@ -48,12 +48,6 @@ function ProjectBody() {
                     </React.Fragment>
                 ))}
                 </ul>
-                {project.subheaders.map(header => (
-                    <React.Fragment key={header.header}>
-                        <span className="project-sub-header">{header.header}</span>
-                        <span className="project-text">{header.text}</span>
-                    </React.Fragment>
-                ))}
                 <span className="project-sub-header">Sources</span>
                 <ul>
                 {project.links.map(link => (
