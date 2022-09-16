@@ -342,7 +342,7 @@ html, body, root {
     border-bottom: 25px solid transparent;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 1.2vw;
+    margin-top: auto;
     margin-bottom: auto;
 }
 
@@ -376,6 +376,7 @@ html, body, root {
 
 .right {
     display: flex;
+    flex-direction: row;
     grid-area: right;
     background: var(--d-pad-color);
     height: 5vw;
