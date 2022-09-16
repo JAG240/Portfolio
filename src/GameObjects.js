@@ -378,11 +378,11 @@ export class Gunner {
         if (Date.now() - this.lastMissileTime < 250 || !this.board.controlsEnabled)
             return false;
 
-        var misslePos = Math.round(this.pos[0] + (this.board.tileWidth / 8));
+        var misslePos = this.pos[0] + (this.board.tileWidth / 2);
         var missleOffset = misslePos % this.board.tileWidth;
 
-        if (missleOffset > this.board.tileWidth - (this.board.tileWidth / 4)) {
-            misslePos -= ((this.board.tileWidth - (this.board.tileWidth / 4)) - this.board.tileWidth) - 6;
+        if (missleOffset > this.board.tileWidth / 2) {
+            misslePos -= (this.board.tileWidth - missleOffset);
         }
 
         var missle = new Missile(misslePos, this.pos[1], -3, this.board, this.lastMissileTime, this);
