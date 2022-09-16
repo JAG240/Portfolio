@@ -162,8 +162,6 @@ function GameCanvas() {
                 </div>
             </div>
             <div className="under-text-container">
-                <span className="under-text">Passionate and </span>
-                <span className="under-text-large">Self-Taught</span>
             </div>
             <div className="controls-container">
                 <div className="d-pad-container">
