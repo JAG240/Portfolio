@@ -140,7 +140,7 @@ export const ProjectsProvider = props => {
             links: [
                 {
                     name: "Netcode for GameObjects",
-                    sir: "https://docs-multiplayer.unity3d.com/netcode/current/about"
+                    src: "https://docs-multiplayer.unity3d.com/netcode/current/about"
                 },
                 {
                     name: "Github Repository",

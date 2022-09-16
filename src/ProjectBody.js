@@ -52,7 +52,7 @@ function ProjectBody() {
                 <ul>
                 {project.links.map(link => (
                     <React.Fragment key={link.name}>
-                        <li><a className="nav-back-text" href={link.src}>{link.name}</a></li>
+                        <li><a className="nav-back-text" target="_blank" href={link.src}>{link.name}</a></li>
                     </React.Fragment>
                 ))}
                 </ul>
