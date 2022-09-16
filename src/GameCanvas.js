@@ -60,6 +60,9 @@ function GameCanvas() {
 
         screen.Init();
 
+        document.addEventListener("keydown", (event) => CommandShip(event));
+        document.addEventListener("keyup", (event) =>  StopShip(event));
+
         const interval = setInterval(() => {
             screen.Update();
         }, 10);
@@ -158,7 +161,7 @@ function GameCanvas() {
                     </div>
                 </div>
                 <div className="canvas-container">
-                    <canvas tabIndex={0} onKeyDown={(e) => CommandShip(e)} onKeyUp={(e) => StopShip(e)} onClick={(e) => GetMouseOnCanvas(e)} style={{ cursor: cursorState }} onMouseMove={(e) => CheckForClickable(e)} id="gameCanvas" width={board.tileWidth * xTiles} height={board.tileHeight * yTiles} className="game-canvas"></canvas>
+                    <canvas onClick={(e) => GetMouseOnCanvas(e)} style={{ cursor: cursorState }} onMouseMove={(e) => CheckForClickable(e)} id="gameCanvas" width={board.tileWidth * xTiles} height={board.tileHeight * yTiles} className="game-canvas"></canvas>
                 </div>
             </div>
             <div className="under-text-container">

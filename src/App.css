@@ -19,10 +19,35 @@ html, body, root {
     background-size: cover;
     color: white;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-content: center;
     justify-content: center;
     height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-container{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+.github-logo {
+    width: 3vw;
+    padding: 1vw;
+    margin-top: 0.5vw;
+}
+
+.linkedin-logo {
+    width: 2vw;
+    padding: 1vw;
+}
+
+.youtube-logo {
+    width: 3vw;
+    padding: 1vw;
 }
 
 .game-canvas {
@@ -110,6 +135,8 @@ html, body, root {
     text-align: center;
     border: 2px solid #D0CABE;
     border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .canvas-container {
@@ -234,6 +261,7 @@ html, body, root {
 
 .controls-container{
     margin-top: 2vw;
+    margin-bottom: 2vw;
     display: flex;
     flex-direction: row;
 }
@@ -275,7 +303,7 @@ html, body, root {
 .up-arrow, .down-arrow, .left-arrow, .right-arrow {
     width: 0;
     height: 0;
-    border-radius:10px;
+    border-radius: 10px;
 }
 
 .up-arrow {
@@ -347,12 +375,13 @@ html, body, root {
     }
 
 .right {
-    display: inline-block;
+    display: flex;
     grid-area: right;
     background: var(--d-pad-color);
     height: 5vw;
     width: 5vw;
     border-radius: 0px 20px 20px 0px;
+    animation: glowing-right 1s ease-in-out 24 alternate;
 }
 
 .right:hover{
@@ -366,6 +395,7 @@ html, body, root {
     height: 5vw;
     width: 5vw;
     border-radius: 20px 0px 0px 20px;
+    animation: glowing-left 1s ease-in-out 24 alternate;
 }
 
     .left:hover {
@@ -381,7 +411,11 @@ html, body, root {
     background: var(--d-pad-color);
 }
 
-.d-pad{
+.up, .down {
+    animation: glowing 1s ease-in-out 24 alternate;
+}
+
+.d-pad {
     display: grid;
     grid-template-areas:
         '. up .'
@@ -390,15 +424,46 @@ html, body, root {
     gap: 0px;
 }
 
+@keyframes glowing {
+    from {
+        box-shadow: 0 0 0px #007aff;
+    }
+
+    to {
+        box-shadow: 0 0 20px #007aff;
+    }
+}
+
+@keyframes glowing-left {
+    from {
+        box-shadow: 0 0 0px #007aff, 0 0 0px #007aff, 0 0 0px #007aff;
+    }
+
+    to {
+        box-shadow: -7px 0px 10px -15px #007aff, -4px 7px 10px -5px #007aff, -4px -7px 10px -5px #007aff;
+    }
+}
+
+@keyframes glowing-right {
+    from {
+        box-shadow: 0 0 0px #007aff, 0 0 0px #007aff, 0 0 0px #007aff;
+    }
+
+    to {
+        box-shadow: 7px 0px 10px -15px #007aff, 4px 7px 10px -5px #007aff, 4px -7px 10px -5px #007aff;
+    }
+}
+
 .d-pad-container{
     padding-left: 5%;
 }
 
-.a-button,.b-button {
+.a-button, .b-button {
     height: 5vw;
     width: 5vw;
     background-color: #902B41;
     border-radius: 50%;
+    animation: glowing 1s ease-in-out 24 alternate;
 }
 
 .a-button{
@@ -450,6 +515,8 @@ html, body, root {
     align-content: center;
     justify-content: center;
     max-width: 70%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .about-content-container {
