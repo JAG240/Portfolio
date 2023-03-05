@@ -176,6 +176,28 @@ export const ProjectsProvider = props => {
                 }
             ]
         },
+        {
+            id: 11,
+            name: "Graveyard Shift",
+            summary: "To better test my abilty to assign and stick to scopes, I signed up for a mini game jam. This game jam was approximately 48 hours long and I wanted to release a game that was playable. In order to complete this project within this timeframe it was a requirement that I define a small scope and not allow myself to hang onto perfection in any areas. This project helped me understand that often times in my projects I would spend too much time ensuring that everything was working perfectly rather than working to finsih the project. With this experience under my belt, I am excited to transition this knowledge to my other projects.",
+            thumbnail: "graveyard_shift.png",
+            gif: "graveyard_shift.gif",
+            usedTech: ["Unity Game Engine","C#", "WebGL","Itch.io"],
+            links: [
+                {
+                    name: "Github Repository",
+                    src: "https://github.com/JAG240/The-Graveyard-Shift"
+                },
+                {
+                    name: "Play the game here",
+                    src: "https://yippika.itch.io/the-graveyard-shift"
+                },
+                {
+                    name: "Game Jam Page",
+                    src: "https://itch.io/jam/mini-jame-gam-15"
+                }
+            ]
+        },
     ]);
     return (
         <ProjectsContext.Provider value={[projects, setProjects]}>
