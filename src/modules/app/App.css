@@ -1,21 +1,21 @@
 @font-face{
     font-family: gameboy;
-    src: url(EarlyGameBoy.ttf);
+    src: url(../../assets/EarlyGameBoy.ttf);
 }
 @font-face{
     font-family: retro;
-    src: url(SuperRetro.ttf);
+    src: url(../../assets/SuperRetro.ttf);
 }
 
 html, body, root {
     height: 100%;
-    background-image: url('background.jpg');
+    background-image: url('../../assets/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .App {
-    background-image: url('background.jpg');
+    background-image: url('../../assets/background.jpg');
     background-size: cover;
     color: white;
     display: flex;

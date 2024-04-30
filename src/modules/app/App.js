@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
-import GameCanvas from './GameCanvas';
-import About from './About';
-import Projects from './Projects';
-import ProjectBody from './ProjectBody';
-import Resume from './Resume';
-import Footer from './Footer';
+import GameCanvas from '../game/GameCanvas';
+import About from '../about/About';
+import Projects from '../projects/Projects';
+import ProjectBody from '../projects/ProjectBody';
+import Resume from '../resume/Resume';
+import Footer from '../includes/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ProjectsProvider } from './ProjectsContext';
-import { AboutProvider } from './AboutContext';
+import { ProjectsProvider } from '../projects/ProjectsContext';
+import { AboutProvider } from '../about/AboutContext';
 
 function App() {
     return (

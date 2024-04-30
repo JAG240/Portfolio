@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import PageTitle from './PageTitle';
+import PageTitle from '../includes/PageTitle';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ProjectsContext } from './ProjectsContext';
 

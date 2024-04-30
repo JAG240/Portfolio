@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import PageTitle from './PageTitle';
+import PageTitle from '../includes/PageTitle';
 import { ProjectsContext } from './ProjectsContext';
 import ProjectLabel from './ProjectLabel';
 
