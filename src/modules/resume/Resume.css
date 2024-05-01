@@ -1,0 +1,18 @@
+.resume-container{
+	margin-top: 2.5vh;
+	width: 90vw;
+	height: 80vh;
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	align-items: center;
+	justify-content: center;
+}
+
+.resume-embed{
+	align-self: center;
+	align-items: center;
+	justify-content: center;
+	width: 60vw;
+	height: 80vh;
+}

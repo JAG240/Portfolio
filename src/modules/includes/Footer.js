@@ -1,7 +1,8 @@
 import React from 'react';
-import Youtube from '../../assets/YouTube.svg';
+import Youtube from '../../assets/YouTube.png';
 import GitHub from '../../assets/GitHub_Logo.png';
-import Linkedin from '../../assets/linkedin.svg'
+import Linkedin from '../../assets/linkedin.png';
+import './Footer.css'
 
 function Footer() {
     return (

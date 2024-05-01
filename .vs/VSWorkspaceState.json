@@ -1,9 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
-    "\\src"
+    "\\src\\modules\\about",
+    "\\src\\modules\\app",
+    "\\src\\modules\\game",
+    "\\src\\modules\\includes",
+    "\\src\\modules\\projects",
+    "\\src\\modules\\resume"
   ],
-  "SelectedNode": "\\src\\App.css",
   "PreviewInSolutionExplorer": false
 }

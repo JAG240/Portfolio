@@ -1,0 +1,41 @@
+.box{
+	background-color: #FFFFFF10;
+	height: 20vh;
+	width: 20vh;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+	justify-content:center;
+	box-shadow: 5px 5px 5px 5px #FFFFFF04;
+}
+
+.box:hover{
+	transform: scale(1.03);
+	box-shadow: 10px 10px 5px 5px #FFFFFF04;
+	transition: box-shadow 0.3s ease-in-out;
+}
+
+.text{
+	text-align: center;
+	position: relative;
+	text-decoration: none;
+}
+
+.text::before{
+	content: "";
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 2px;
+	bottom: 0;
+	left: 0;
+	background-color: #FFFFFF;
+	transform: scaleX(0);
+	transform-origin: top left;
+	transition: transform 0.3s ease;
+}
+
+.text:hover::before {
+  transform: scaleX(1);
+}
