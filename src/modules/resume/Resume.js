@@ -4,7 +4,7 @@ import './Resume.css';
 function Resume() {
     return (
         <div className="resume-container">
-            <embed className="resume-embed" src="Jacob_Gonos_Resume.pdf" />
+            <iframe className="resume-embed" src="Jacob_Gonos_Resume.pdf" />
         </div>
     );
 }
