@@ -16,8 +16,8 @@
 	align-items: center;
 	justify-content: center;
 	align-self: center;
-	width: 15vw;
-	height: 15vw;
+	width: 20vw;
+	height: 20vw;
 	-webkit-box-shadow: 0 0 15px #0D98BA;
         box-shadow: 0 0 15px #0D98BA;
 	border-radius: 50%;
@@ -45,5 +45,10 @@
 	.link-boxes{
 		flex-direction: column;
 		max-height: auto;
+	}
+
+	.profile-pic{
+		width: 50vw;
+		height: 50vw;
 	}
 }

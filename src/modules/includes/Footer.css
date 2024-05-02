@@ -27,6 +27,22 @@
 
 @media screen and (orientation: portrait){
     .footer-container{
+        margin-top: 2.5vh;
         position: relative;
+    }
+
+    .github-logo {
+        width: 8vw;
+        padding: 2vw;
+    }
+
+    .linkedin-logo {
+        width: 8vw;
+        padding: 2vw;
+    }
+
+    .youtube-logo {
+        width: 8vw;
+        padding: 2vw;
     }
 }
