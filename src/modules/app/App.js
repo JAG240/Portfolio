@@ -8,7 +8,7 @@ import Resume from '../resume/Resume';
 
 function App() {
 
-    const [isDark, setDark] = useState(false);
+    const [isDark, setDark] = useState(true);
 
     const changeState = () => {
         setDark(!isDark);
