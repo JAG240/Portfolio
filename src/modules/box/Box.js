@@ -1,9 +1,9 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { useNavigate } from 'react-router-dom';
 import './Box.css';
 
-function Box({ text,link }) {
+function Box({ text, link, isDark }) {
 
     const navigate = useNavigate();
 

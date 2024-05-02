@@ -30,7 +30,7 @@
 	width: 40vw;
 	font-family: "Monaco", monospace;
 	text-align: center;
-	color: #B2B2B2;
+	color: var(--passive-text-color);
 	overflow: auto;
 }
 
@@ -50,5 +50,9 @@
 	.profile-pic{
 		width: 50vw;
 		height: 50vw;
+	}
+
+	.home-text{
+		width: 60vw;
 	}
 }

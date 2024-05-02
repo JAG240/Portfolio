@@ -8,6 +8,8 @@
 	position: relative;
 	text-decoration: none;
 	font-family: "Monaco", monospace;
+	cursor: pointer;
+	color: var(--default-text-color);
 }
 
 .name::before{
@@ -18,7 +20,7 @@
 	height: 2px;
 	bottom: 0;
 	left: 0;
-	background-color: #FFFFFF;
+	background-color: var(--default-text-color);
 	transform: scaleX(0);
 	transform-origin: top left;
 	transition: transform 0.3s ease;
