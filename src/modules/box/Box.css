@@ -20,6 +20,7 @@
 	text-align: center;
 	position: relative;
 	text-decoration: none;
+	font-family: "Monaco", monospace;
 }
 
 .text::before{
@@ -38,4 +39,10 @@
 
 .text:hover::before {
   transform: scaleX(1);
+}
+
+@media screen and (orientation: portrait){
+	.box{
+		height: 10vh;
+	}
 }

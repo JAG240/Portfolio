@@ -3,7 +3,6 @@
     flex-direction: row;
     align-content: center;
     justify-content: center;
-    border-radius: 5px;
     width: 20%;
     align-self: center;
     position: absolute;
@@ -24,4 +23,10 @@
 .youtube-logo {
     width: 3vw;
     padding: 1vw;
+}
+
+@media screen and (orientation: portrait){
+    .footer-container{
+        position: relative;
+    }
 }

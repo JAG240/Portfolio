@@ -27,13 +27,23 @@
 
 .home-text{
 	margin-top: 2.5vh;
-	height: 20vh;
 	width: 40vw;
+	font-family: "Monaco", monospace;
+	text-align: center;
+	color: #B2B2B2;
+	overflow: auto;
 }
 
 .link-boxes{
+	margin-top: 2.5vh;
 	display: flex;
 	flex-direction: row;
-	height: 20vh;
 	gap: 2.5vw;
+}
+
+@media screen and (orientation: portrait){
+	.link-boxes{
+		flex-direction: column;
+		max-height: auto;
+	}
 }
