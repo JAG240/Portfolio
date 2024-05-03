@@ -2,9 +2,12 @@ import { React, useState } from 'react';
 import './App.css';
 import Footer from '../includes/Footer';
 import PageTitle from '../includes/PageTitle';
+import ChangeTheme from '../includes/ThemeChanger';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../home/Home';
 import Resume from '../resume/Resume';
+import Sun from '../../assets/sun.png';
+import Moon from '../../assets/moon.png';
 
 function App() {
 
@@ -12,10 +15,7 @@ function App() {
 
     const changeState = () => {
         setDark(!isDark);
-        document.documentElement.style.setProperty('--theme', isDark ? "#191919" : "#b5b5b5");
-        document.documentElement.style.setProperty('--box-theme', isDark ? "#00000010" : "#FFFFFF10");
-        document.documentElement.style.setProperty('--default-text-color', isDark ? "#000000" : "#FFFFFF");
-        document.documentElement.style.setProperty('--passive-text-color', isDark ? "#696969" : "#B2B2B2");
+        ChangeTheme(isDark);
     }
 
     document.documentElement.style.setProperty('--theme', isDark ? "#191919" : "#FFFFFF");
@@ -23,13 +23,15 @@ function App() {
     return (
         <Router>
             <div className="App">
-            <button type="button" className="themeToggle" onClick={changeState}>{isDark ? "Lights on" : "Lights out"}</button> 
+            <div className="theme">
+                <button type="button" className="themeToggle" onClick={changeState}><img className="toggleImg" src={isDark ? Sun : Moon} /></button> 
+            </div>
             <PageTitle />
                     <Routes>
                         <Route path="/" exact element={<Home />} />
                         <Route path="/resume" exact element={<Resume />} />
                     </Routes>
-                <Footer />
+                <Footer isDark={isDark}/>
             </div>
         </Router>
     );

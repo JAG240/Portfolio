@@ -26,3 +26,36 @@ html, body{
 .themeToggle{
     width: 5vw;
 }
+
+.toggleImg{
+    height: 1vw; 
+    width: 1vw;
+    padding-top: 5%;
+}
+
+.theme{
+    height: 1vh;
+}
+
+.themeToggle{
+    margin: 0.25vw;
+    background-color: var(--box-theme);
+    border: 0px;
+    border-radius: 50%;
+    width: 2vw;
+    height: 2vw;
+    overflow: visible;
+}
+
+@media screen and (orientation: portrait){
+    .toggleImg{
+        height: 3vw; 
+        width: 3vw;
+    }
+
+    .themeToggle{
+        margin: 1vw;
+        width: 6vw;
+        height: 6vw;
+    }
+}
