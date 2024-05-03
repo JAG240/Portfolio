@@ -3,7 +3,10 @@
     --box-theme: #FFFFFF10;
     --default-text-color: white;
     --passive-text-color: #B2B2B2;
+    --default-font: "Josefin Sans", monospace;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
 html, body{
     height: 100%;

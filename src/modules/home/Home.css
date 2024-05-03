@@ -28,10 +28,11 @@
 .home-text{
 	margin-top: 2.5vh;
 	width: 40vw;
-	font-family: "Monaco", monospace;
+	font-family: var(--default-font);
 	text-align: center;
 	color: var(--passive-text-color);
 	overflow: auto;
+	line-height: 2;
 }
 
 .link-boxes{
