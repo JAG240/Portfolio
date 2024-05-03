@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ScrollToTop from "../includes/ScrollToTop";
 
 import Footer from '../includes/Footer';
 import PageTitle from '../includes/PageTitle';
@@ -26,6 +27,7 @@ function App() {
 
     return (
         <Router>
+            <ScrollToTop />
             <div className="App">
             <div className="theme">
                 <button type="button" className="themeToggle" onClick={changeState}><img className="toggleImg" src={isDark ? Sun : Moon} /></button> 
