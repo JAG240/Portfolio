@@ -3,8 +3,10 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\modules",
-    "\\src\\modules\\app"
+    "\\src\\assets",
+    "\\src\\modules\\projects",
+    "\\src\\modules\\projects\\box"
   ],
+  "SelectedNode": "\\public\\thumbnails",
   "PreviewInSolutionExplorer": false
 }

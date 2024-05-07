@@ -11,6 +11,7 @@ import Moon from '../../assets/moon.png';
 
 import Home from '../home/Home';
 import About from '../about/About';
+import Projects from '../projects/Projects';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
                         <Route path="/" exact element={<Home />} />
                         <Route path="/resume" exact element={<Resume />} />
                         <Route path="/about" exact element={<About isDark={isDark}/>} />
+                        <Route path="/projects" exact element={<Projects />} />
                     </Routes>
                 <Footer isDark={isDark}/>
             </div>
