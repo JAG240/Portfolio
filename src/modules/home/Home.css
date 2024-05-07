@@ -1,0 +1,59 @@
+.home-container{
+	margin-top: 2.5vh;
+}
+
+.home-body{
+	margin-top: 2.5vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.profile-pic{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	align-self: center;
+	width: 20vw;
+	height: 20vw;
+	-webkit-box-shadow: 0 0 15px #0D98BA;
+        box-shadow: 0 0 15px #0D98BA;
+	border-radius: 50%;
+	margin-left: center;
+	margin-right: center;
+}
+
+.home-text{
+	margin-top: 2.5vh;
+	width: 40vw;
+	font-family: var(--default-font);
+	text-align: center;
+	color: var(--passive-text-color);
+	overflow: auto;
+	line-height: 2;
+}
+
+.link-boxes{
+	margin-top: 2.5vh;
+	display: flex;
+	flex-direction: row;
+	gap: 2.5vw;
+}
+
+@media screen and (orientation: portrait){
+	.link-boxes{
+		flex-direction: column;
+		max-height: auto;
+	}
+
+	.profile-pic{
+		width: 50vw;
+		height: 50vw;
+	}
+
+	.home-text{
+		width: 60vw;
+	}
+}

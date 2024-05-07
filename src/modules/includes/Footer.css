@@ -1,0 +1,48 @@
+.footer-container{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    width: 20%;
+    align-self: center;
+    position: relative;
+    bottom: 0;
+}
+
+.github-logo {
+    width: 3vw;
+    padding: 1vw;
+    margin-top: 0.5vw;
+}
+
+.linkedin-logo {
+    width: 2vw;
+    padding: 1vw;
+}
+
+.youtube-logo {
+    width: 3vw;
+    padding: 1vw;
+}
+
+@media screen and (orientation: portrait){
+    .footer-container{
+        margin-top: 2.5vh;
+        position: relative;
+    }
+
+    .github-logo {
+        width: 8vw;
+        padding: 2vw;
+    }
+
+    .linkedin-logo {
+        width: 8vw;
+        padding: 2vw;
+    }
+
+    .youtube-logo {
+        width: 8vw;
+        padding: 2vw;
+    }
+}

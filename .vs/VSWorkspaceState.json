@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\public",
-    "\\src"
+    "\\src",
+    "\\src\\assets",
+    "\\src\\modules\\projects",
+    "\\src\\modules\\projects\\box"
   ],
-  "SelectedNode": "\\src\\App.css",
+  "SelectedNode": "\\public\\thumbnails",
   "PreviewInSolutionExplorer": false
 }

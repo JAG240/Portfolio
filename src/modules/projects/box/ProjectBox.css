@@ -1,0 +1,72 @@
+.project-box{
+	background-color: var(--box-theme);
+	min-height: 50vh;
+	width: 40vh;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+	box-shadow: 3px 3px 3px 3px #00000008;
+	cursor: pointer;
+	margin: 2vw;
+}
+
+.project-box:hover{
+	transform: scale(1.03);
+	box-shadow: 8px 8px 3px 3px #00000010;
+	transition: box-shadow 0.3s ease-in-out;
+}
+
+.box-content{
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.box-image{
+
+}
+
+.image{
+	width: 100%;
+	min-height: 22.5vh;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.box-title{
+	text-align: center;
+	text-decoration: underline;
+	color: var(--default-text-color);
+	font-family: var(--default-font);
+}
+
+.box-text{
+	font-family: var(--default-font);
+	color: var(--default-text-color);
+	line-height: 1.5;
+	margin: 0.5vw;
+	margin-bottom: auto;
+}
+
+.no-style{
+	color: inherit;
+}
+
+.no-style:link{
+	text-decoration: inherit;
+}
+
+.tags{
+	display: flex; 
+	flex-direction: row;
+	margin-bottom: 0.5vh;
+	margin-top: 0.5vh;
+	align-self: flex-start;
+}
+
+.tag{
+	color: var(--passive-text-color);
+	margin-right: 0.5vw;
+	margin-left: 0.5vw;
+}
