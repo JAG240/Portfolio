@@ -3,6 +3,10 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	font-family: var(--default-font);
+	color: var(--passive-text-color);
+	line-height: 2;
+	margin-top: 2.5vh;
 }
 
 .project-boxes{
@@ -12,7 +16,7 @@
 
 .grid{
 	display: grid;
-	grid-template-columns: auto auto auto;
+	grid-template-columns: auto;
 }
 
 @media screen and (orientation: portrait){

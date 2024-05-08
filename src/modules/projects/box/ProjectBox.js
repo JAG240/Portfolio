@@ -14,21 +14,24 @@ function ProjectBox({imagesrc, gifsrc, title, text, repo, tags}) {
     }
 
     return (
-            <div className="box-content">
-            <a href={repo} className="no-style" target="_blank"> <div className="project-box" onMouseOver={GifImage} onMouseOut={StaticImage}>
-                <div className="box-image">
-                    <img className="image" ref={imageRef} src={imagesrc} />
+        <div className="box-content">
+            <a href={repo} className="no-style" target="_blank"> 
+                <div className="project-box" onMouseOver={GifImage} onMouseOut={StaticImage}>
+                    <div className="box-image">
+                        <img className="image" ref={imageRef} src={imagesrc} />
+                    </div>
+                    <div className="box-summary">
+                        <div className="box-title">
+                            {title}
+                        </div>
+                        <div className="box-text">
+                            {text}
+                        </div>
+                        <div className="tags">
+                            { tags.map(tag => <div className="tag">{tag}</div>) }
+                        </div>
+                    </div>
                 </div>
-                <div className="box-title">
-                    {title}
-                </div>
-                <div className="box-text">
-                    {text}
-                </div>
-                <div className="tags">
-                    { tags.map(tag => <div className="tag">{tag}</div>) }
-                </div>
-            </div>
             </a>
         </div>
         );

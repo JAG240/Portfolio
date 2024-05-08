@@ -1,3 +1,8 @@
+.resume{
+	display: flex;
+	flex-direction: column;
+}
+
 .resume-container{
 	margin-top: 2.5vh;
 	width: 90vw;

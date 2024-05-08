@@ -4,9 +4,9 @@
     "\\public",
     "\\src",
     "\\src\\assets",
-    "\\src\\modules\\projects",
-    "\\src\\modules\\projects\\box"
+    "\\src\\assets\\gifs",
+    "\\src\\assets\\thumbnails"
   ],
-  "SelectedNode": "\\public\\thumbnails",
+  "SelectedNode": "\\src\\assets\\thumbnails\\portfolio_thumb.png",
   "PreviewInSolutionExplorer": false
 }

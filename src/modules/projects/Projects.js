@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Projects.css';
+import Box from '../box/Box';
 import ProjectBox from './box/ProjectBox';
 
 import HorrorGif from '../../assets/gifs/horror_game.gif';
@@ -23,6 +24,7 @@ import FishImg from '../../assets/thumbnails/fishing_game_thumb.png';
 function Projects() {
     return (
         <div className="projects-container">
+        Click on project box to see github repository
             <div className="project-boxes">
                 <div className="grid">
                     <ProjectBox imagesrc={PokeImg} gifsrc={PokeGif} title={"Pokemon Map"} repo={"https://github.com/JAG240/Pokemon-Map"} tags={["HTML", "CSS", "XSLT", "XML", "JQuery"]} text={"In this college project, I delved into the world of web development by utilizing XSLT and XML data to create dynamic templates. The objective was to generate HTML pages for all 151 original Pokemon and 50 locations within the iconic Kanto Region. This endeavor not only honed my skills in XSLT and XML but also introduced me to the fundamentals of HTML and CSS. Through meticulous template design and data manipulation, I successfully brought the rich universe of Pokemon to life on the web, marking a pivotal milestone in my journey as a developer."} />
@@ -32,6 +34,10 @@ function Projects() {
                     <ProjectBox imagesrc={FishImg} gifsrc={FishGif} title={"Fishing Game"} repo={"https://github.com/JAG240/FishingGrounds"} tags={["C#", "Unity", "Netcode for GameObjects", "HLSL"]} text={"In my quest to broaden my skill set in game development, I embarked on a captivating project centered around the theme of fishing. This endeavor served as a dual exploration: firstly, delving into the realm of multiplayer game mechanics by mastering netcode for GameObjects in Unity, and secondly, diving into the intricacies of shader writing through an immersive online course in HLSL (High-Level Shading Language). Through meticulous implementation of netcode, I learned the art of synchronizing game states across multiple clients, ensuring a seamless and immersive multiplayer experience. Meanwhile, my foray into HLSL shader writing equipped me with the tools to create stunning visual effects, from cartoon-styled water ripples to dynamic lighting and shading."} />
                     <ProjectBox imagesrc={HorrorImg} gifsrc={HorrorGif} title={"Horror Game"} repo={"https://github.com/JAG240/Trapped"} tags={["C#", "Unity"]} text={"In the culmination of my journey with Unity, I embarked on my most ambitious endeavor yet: the creation of a full-sized indie horror game. This project served as a comprehensive test of my skills, pushing the boundaries of code architecture and clean coding principles as I orchestrated a myriad of interconnected systems within the game world. From intricate AI behaviors to immersive environmental interactions, every aspect of the game was meticulously crafted to deliver a chilling and unforgettable experience for players. Drawing upon the diverse range of skills acquired throughout my software engineering journey, I implemented robust code architecture to ensure scalability, modularity, and maintainability, paving the way for future expansion and iteration. This project not only marked a milestone in my software engineering career but also exemplified my commitment to excellence in technical craftsmanship. Though this project is not publicly ready, if you would like a copy of the first alpha build feel free to reach out to me for a download link."} />
                 </div>
+            </div>
+            <div className="link-boxes">
+                <Box text={"About Me"} link={"about"} />
+                <Box text={"Resume"} link={"resume"} />
             </div>
         </div>
     );
