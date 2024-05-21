@@ -1,6 +1,14 @@
 # You can now view this website live!
 Go check it out! -> www.gonos.dev
 
+This is a portfolio website designed to demonstrate and show some of the key projects I worked on to learn advanced coding topics. In addition to showing these projects, the development of this website was an opportunity to teach myself react and get more hands on experience with JavaScript. I put focus on creating this website to be responsive, so that users could look at it with a phone, computer, tablet, etc., and readable in any lighting conditions, meaning that a light and dark theme toggle should be available. 
+
+This website utilizes a react template that was provided by the Facebook Team. Though it is very minimal in content when first cloned, I created a structure that is realtively simple. Check out the react template details below. 
+
+
+<details> 
+  <summary>Click here for details about react template</summary>
+  
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -71,3 +79,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+</details>
